@@ -1,5 +1,5 @@
-import { TProduct } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TProduct } from "../../../types/product";
 
 interface WishlistState {
   items: TProduct[];

@@ -1,6 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "@/redux/features/authSlice";
-import wishlistReducer from "@/redux/features/wishlist/wishlistSlice";
 import {
   FLUSH,
   PAUSE,
@@ -11,6 +9,8 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage, { storageLocal } from "./storage";
+import authReducer from "../redux/features/authSlice";
+import wishlistReducer from "../redux/features/wishlist/wishlistSlice";
 
 // persist configure for auth
 const persistConfig = {

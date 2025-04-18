@@ -1,10 +1,10 @@
 "use client";
-import LoadingScreen from "@/components/ui/core/Loader";
-import { AppStore, makeStore } from "@/redux/store";
 import { ReactNode, useRef } from "react";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+import { AppStore, makeStore } from "../redux/store";
+import LoadingScreen from "../components/ui/core/Loader";
 
 export default function StoreProvider({ children }: { children: ReactNode }) {
   const storeRef = useRef<AppStore>(undefined);

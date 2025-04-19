@@ -6,6 +6,7 @@ import {
   HelpCircle,
   Home,
   LayoutDashboard,
+  LogIn,
   LogOutIcon,
   Mail,
   ShoppingBag,
@@ -74,6 +75,7 @@ export default function Navbar() {
       <Container>
         <nav className="mt-4">
           <div className="mt-4 flex justify-end lg:justify-between lg:mb-4">
+            <div>SecondHand Marketplace</div>
             {/* menubar */}
             <ul className="hidden lg:flex gap-4 text-lg">
               <li>
@@ -82,10 +84,6 @@ export default function Navbar() {
               <li>
                 <NavigationLink route="Products" path="/products" />
               </li>
-              <li className="group relative">
-                {/* MegaMenu will open when hovering over Products */}
-                <NavigationLink route="Discover" path="#" />
-              </li>
               <li>
                 <NavigationLink route="About Us" path="/aboutUs" />
               </li>
@@ -93,17 +91,17 @@ export default function Navbar() {
                 <NavigationLink route="Contact Us" path="/contactUs" />
               </li>
               <li>
-                <NavigationLink route="FAQs" path="/faq" />
-              </li>
-              <li>
                 <NavigationLink route="Blogs" path="/blogs" />
               </li>
+              <li>
+                <NavigationLink route="FAQs" path="/faq" />
+              </li>
             </ul>
-            {/* wishlist and profile */}
+
             <div className="flex items-center gap-4">
               <Link href="/wishlist">
                 <Button variant="outline" className="cursor-pointer">
-                  Whiteicon
+                  White Lists
                 </Button>
               </Link>
               <Link href="/user/dashboard">
@@ -111,35 +109,24 @@ export default function Navbar() {
                   Dashboard
                 </Button>
               </Link>
-              <div onClick={handleLogout}>
-                <span className="flex gap-2 items-center text-base cursor-pointer">
-                  <LogOutIcon className="w-6 h-6" />
-                  Logout
-                </span>
-              </div>
+              {user && (
+                <div onClick={handleLogout}>
+                  <span className="flex gap-2 items-center text-base cursor-pointer">
+                    <LogOutIcon className="w-6 h-6" />
+                    Logout
+                  </span>
+                </div>
+              )}
 
               {/* profile dropdown visible for large devices */}
-              {user && (
+              {!user && (
                 <div className="hidden lg:flex">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild className="cursor-pointer">
-                      <UserCircle2 size={28} />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                      <DropdownMenuGroup>
-                        <DropdownMenuItem>
-                          <Link
-                            href="/user/dashboard"
-                            className="flex items-center gap-2 text-base"
-                          >
-                            <LayoutDashboard className="w-6 h-6" />
-                            Dashboard
-                          </Link>
-                        </DropdownMenuItem>
-                        <Separator />
-                      </DropdownMenuGroup>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <Link href={"/login"}>
+                    <span className="flex gap-2 items-center text-base cursor-pointer">
+                      <LogIn className="w-6 h-6" />
+                      Login
+                    </span>
+                  </Link>
                 </div>
               )}
 

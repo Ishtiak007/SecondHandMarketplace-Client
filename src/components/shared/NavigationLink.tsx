@@ -17,8 +17,8 @@ export default function NavigationLink({ path, route }: NavigationLinkProps) {
     <Link
       href={path}
       className={cn(
-        "text-[#1F2937] hover:text-[#D97706] transition-colors",
-        isActive && "text-[#F59E0B] font-semibold"
+        "text-[#1F2937] hover:text-[#115E59] transition-colors",
+        isActive && "text-[#115E59] font-semibold"
       )}
     >
       {route}

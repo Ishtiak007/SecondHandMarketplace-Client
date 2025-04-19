@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "../../../ui/button";
 import {
   FormControl,
   FormField,
@@ -17,7 +16,6 @@ import {
   SelectValue,
 } from "../../../ui/select";
 import { Textarea } from "../../../ui/textarea";
-import { addProduct } from "@/services/Product";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import {
@@ -30,13 +28,14 @@ import {
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { addProductValidation } from "./addProduct.validation";
-import { districts } from "../../../../constants/districts";
+import { addProduct } from "../../../../services/ProductApi";
+import { districts } from "./districts";
 
 const conditionOptions = [
   { value: "new", label: "New" },
-  { value: "likeNew", label: "Like New" },
+  { value: "likeNew", label: "As Good As New" },
   { value: "used", label: "Used" },
-  { value: "refurbished", label: "Refurbished" },
+  { value: "refurbished", label: "Restored" },
 ];
 
 const categoryOptions = [
@@ -126,13 +125,15 @@ export default function AddProductForm() {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-4">Add a New Product</h2>
+    <div className="p-4 lg:w-[90%] mx-auto border rounded-md shadow-2xl">
+      <h2 className="text-2xl font-semibold mb-4 text-center my-5">
+        Add a Product
+      </h2>
       <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          {/* title and category */}
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
+          {/** title , category, price **/}
           <div className="flex flex-col lg:flex-row gap-4">
-            {/* title */}
+            {/** title **/}
             <div className="flex-1">
               <FormField
                 control={form.control}
@@ -140,12 +141,12 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Title <span className="text-red-500">*</span>
+                      Title <span className="text-red-500">**</span>
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Enter your product title"
+                        placeholder="Enter Product title"
                         className="w-full"
                       />
                     </FormControl>
@@ -154,7 +155,7 @@ export default function AddProductForm() {
                 )}
               />
             </div>
-            {/* category */}
+            {/** category **/}
             <div className="flex-1">
               <FormField
                 control={form.control}
@@ -162,7 +163,7 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Category <span className="text-red-500">*</span>
+                      Category <span className="text-red-500">**</span>
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -186,62 +187,20 @@ export default function AddProductForm() {
                 )}
               />
             </div>
-          </div>
-
-          {/* images */}
-          <div>
-            <div className="flex justify-between items-center border-t border-b py-3 my-3">
-              <Label>
-                Images <span className="text-red-500">*</span>
-              </Label>
-              <Button
-                variant="outline"
-                className="size-8 cursor-pointer bg-[#F59E0B] hover:bg-[#D97706]"
-                onClick={addImage}
-                type="button"
-              >
-                <Plus className=" text-white" />
-              </Button>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-              {/* Dynamic image fields */}
-              {imageFields.map((imageField, index) => (
-                <div key={imageField.id}>
-                  <FormField
-                    control={form.control}
-                    name={`images.${index}.value`}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Image {index + 1}</FormLabel>
-                        <FormControl>
-                          <Input {...field} value={field.value || ""} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* price, condition, brand, location, negotiable, contact number, description, warranty */}
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {/* price */}
-            <div>
+            {/** price **/}
+            <div className="flex-1">
               <FormField
                 control={form.control}
                 name="price"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Price <span className="text-red-500">*</span>
+                      Price <span className="text-red-500">**</span>
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Enter the price"
+                        placeholder="Enter price"
                         className="w-full"
                       />
                     </FormControl>
@@ -250,7 +209,11 @@ export default function AddProductForm() {
                 )}
               />
             </div>
-            {/* condition */}
+          </div>
+
+          {/** condition, brand, location,**/}
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {/** condition **/}
             <div>
               <FormField
                 control={form.control}
@@ -258,7 +221,7 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Condition <span className="text-red-500">*</span>
+                      Condition <span className="text-red-500">**</span>
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -282,40 +245,41 @@ export default function AddProductForm() {
                 )}
               />
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {/* location */}
-            <FormField
-              control={form.control}
-              name="location"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Location <span className="text-red-500">*</span>
-                  </FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select location" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {locationOptions.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                          {option.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {/* brand */}
+            {/** location **/}
+            <div>
+              <FormField
+                control={form.control}
+                name="location"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Location <span className="text-red-500">**</span>
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select location" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {locationOptions.map((option) => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/** brand **/}
             <div>
               <FormField
                 control={form.control}
@@ -326,7 +290,7 @@ export default function AddProductForm() {
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Enter the brand"
+                        placeholder="Enter brand"
                         className="w-full"
                       />
                     </FormControl>
@@ -337,8 +301,9 @@ export default function AddProductForm() {
             </div>
           </div>
 
+          {/**  negotiable, contact number,  **/}
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {/* negotiable */}
+            {/** negotiable **/}
             <div>
               <FormField
                 control={form.control}
@@ -346,7 +311,7 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Negotiable <span className="text-red-500">*</span>
+                      Negotiable <span className="text-red-500">**</span>
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -370,7 +335,7 @@ export default function AddProductForm() {
                 )}
               />
             </div>
-            {/* contact number */}
+            {/** contact number **/}
             <div>
               <FormField
                 control={form.control}
@@ -378,12 +343,12 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Contact Number <span className="text-red-500">*</span>
+                      Contact Number <span className="text-red-500">**</span>
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Enter your contact number"
+                        placeholder="Enter Your contact number"
                         className="w-full"
                       />
                     </FormControl>
@@ -394,57 +359,101 @@ export default function AddProductForm() {
             </div>
           </div>
 
-          <div>
-            {/* description */}
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Description <span className="text-red-500">*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Textarea
-                      {...field}
-                      placeholder="Enter description"
-                      className="w-full min-h-[200px]"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          {/** description, warranty **/}
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div>
+              {/** description **/}
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Description <span className="text-red-500">**</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        placeholder="Description about this product"
+                        className="w-full min-h-[200px]"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div>
+              {/** warranty **/}
+              <FormField
+                control={form.control}
+                name="warranty"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Warranty<span className="text-red-500">**</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        {...field}
+                        placeholder="Shor explaination Warranty details"
+                        className="w-full min-h-[200px]"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
 
+          {/** images **/}
           <div>
-            {/* warranty */}
-            <FormField
-              control={form.control}
-              name="warranty"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Warranty</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      {...field}
-                      placeholder="Enter warranty details"
-                      className="w-full min-h-[200px]"
+            <Label>
+              Images URL<span className="text-red-500">**</span>
+            </Label>
+            <div className="grid grid-cols-2 border rounded-md p-3 my-2">
+              <div className="flex justify-center items-center">
+                <button
+                  className="hover:cursor-pointer border border-neutral-300 px-2 flex py-[3px] gap-3 items-center justify-center font-medium rounded-md transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white  my-4 mt-2 bg-zinc-100"
+                  onClick={addImage}
+                  type="button"
+                >
+                  <Plus className="" /> Add Image Field
+                </button>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                {/** Dynamic image fields **/}
+                {imageFields.map((imageField, index) => (
+                  <div key={imageField.id}>
+                    <FormField
+                      control={form.control}
+                      name={`images.${index}.value`}
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Image URL ({index + 1})</FormLabel>
+                          <FormControl>
+                            <Input {...field} value={field.value || ""} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="mt-4">
-            <Button
+            <button
               type="submit"
-              className="bg-[#F59E0B] hover:bg-[#D97706] cursor-pointer"
+              className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white  my-4 mt-2 w-full flex-1 bg-gray-100"
             >
               Add Product
-            </Button>
+            </button>
           </div>
         </form>
       </FormProvider>

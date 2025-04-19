@@ -9,10 +9,10 @@
 }
 
 .loader {
-  width: 70px;
+  width: 71px;
   height: 70px;
   border: 10px solid #f3f3f3;
-  border-top: 7px dotted #115e59;
+  border-top: 8px dotted #115e59;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

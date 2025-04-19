@@ -50,7 +50,7 @@ export default function RootLayout({
       <body className={`${poppinsClassName}`}>
         <Providers>
           {children}
-          <Toaster position="top-right" />
+          <Toaster position="top-center" />
         </Providers>
       </body>
     </html>

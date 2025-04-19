@@ -21,8 +21,18 @@ import Image from "next/image";
 import loginImage from "../../../../assets/loginImage.jpg";
 import { loginValidation } from "./Login.Validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { verifyToken } from "../../../../lib/verifyToken";
+import { loginUser } from "../../../../services/Auth";
+import { useRouter } from "next/navigation";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { setUser } from "../../../../redux/features/authSlice";
 
 export default function LoginForm() {
+  const dispatch = useAppDispatch();
+
+  const router = useRouter();
+
   const form = useForm({
     resolver: zodResolver(loginValidation),
     defaultValues: {
@@ -30,13 +40,38 @@ export default function LoginForm() {
       password: "",
     },
   });
+
   const {
     formState: { isSubmitting },
     setValue,
   } = form;
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
-    console.log(data);
+    try {
+      const response = await loginUser(data);
+
+      if (response?.success) {
+        toast.success(response?.message);
+        const user = verifyToken(response.data?.token);
+
+        dispatch(setUser({ user: user, token: response.data?.token }));
+        router.push("/");
+      } else {
+        toast.error(response.error[0]?.message);
+      }
+    } catch {
+      toast.error("Something went wring!");
+    }
+  };
+
+  const handleUserAutoFillButton = () => {
+    setValue("identifier", "ishtiak.sparrow98@gmail.com");
+    setValue("password", "123456Aa!");
+  };
+
+  const handleAdminAutoFillButton = () => {
+    setValue("identifier", "admin@gmail.com");
+    setValue("password", "admin123");
   };
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
@@ -114,16 +149,18 @@ export default function LoginForm() {
                 </p>
                 <Separator />
                 <p className="text-center text-gray-500 text-[15px] my-5">
-                  or login with just click
+                  Click here to auto-fill your email and password
                 </p>
                 <div className="flex flex-col gap-4 md:flex-row">
                   <button
+                    onClick={handleUserAutoFillButton}
                     type="submit"
                     className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white  my-4 mt-2 w-full flex-1  bg-zinc-50"
                   >
                     User
                   </button>
                   <button
+                    onClick={handleAdminAutoFillButton}
                     type="submit"
                     className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white  my-4 mt-2 w-full flex-1 bg-zinc-50"
                   >

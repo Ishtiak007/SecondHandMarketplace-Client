@@ -15,7 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../../ui/card";
 import { Input } from "../../../ui/input";
 import Image from "next/image";
 import registerImage from "../../../../assets/loginImage.jpg";
-import { registerUser } from "../../../../services/Auth";
+import { registerUser } from "../../../../services/AuthApi";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 

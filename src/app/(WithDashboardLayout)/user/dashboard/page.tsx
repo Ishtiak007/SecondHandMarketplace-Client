@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import { Fragment } from "react";
-import { getMe } from "../../../../services/User";
+import { getMe } from "../../../../services/UserApi";
 import UserProfile from "../../../../components/modules/Dashboard/UserProfile";
 
 export default async function UserProfilePage() {

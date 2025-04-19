@@ -14,7 +14,7 @@ import {
   SidebarRail,
 } from "../sidebar";
 import Link from "next/link";
-import { getCurrentUser } from "../../../services/Auth";
+import { getCurrentUser } from "../../../services/AuthApi";
 import { ArrowBigRight, Home, Route } from "lucide-react";
 
 const data = {

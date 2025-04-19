@@ -23,7 +23,7 @@ import { loginValidation } from "./Login.Validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { verifyToken } from "../../../../lib/verifyToken";
-import { loginUser } from "../../../../services/Auth";
+import { loginUser } from "../../../../services/AuthApi";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { setUser } from "../../../../redux/features/authSlice";

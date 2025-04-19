@@ -21,7 +21,7 @@ import { Textarea } from "../../../ui/textarea";
 import { toast } from "sonner";
 import { EditIcon } from "lucide-react";
 import { IUser } from "../../../../types/user";
-import { updateProfile } from "../../../../services/User";
+import { updateProfile } from "../../../../services/UserApi";
 
 export default function ProfileModal({
   profile,

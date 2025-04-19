@@ -31,7 +31,7 @@ import Container from "./Container";
 import { useAppDispatch } from "../../redux/hooks";
 import { useRouter } from "next/navigation";
 import { logout } from "../../redux/features/authSlice";
-import { logoutFromCookie } from "../../services/Auth";
+import { logoutFromCookie } from "../../services/AuthApi";
 import { toast } from "sonner";
 
 export default function Navbar() {

@@ -15,8 +15,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../../ui/card";
 import { Input } from "../../../ui/input";
 import Image from "next/image";
 import registerImage from "../../../../assets/loginImage.jpg";
+import { registerUser } from "../../../../services/Auth";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function RegistrationForm() {
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(registerValidation),
     defaultValues: {
@@ -33,6 +37,18 @@ export default function RegistrationForm() {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
     console.log(data);
+    try {
+      const response = await registerUser(data);
+
+      if (response?.success) {
+        toast.success(response?.message);
+        router.push("/login");
+      } else {
+        toast.error(response?.error[0]?.message);
+      }
+    } catch {
+      toast.error("Something went wrong!");
+    }
   };
 
   return (

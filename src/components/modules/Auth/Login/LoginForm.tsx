@@ -70,8 +70,8 @@ export default function LoginForm() {
   };
 
   const handleAdminAutoFillButton = () => {
-    setValue("identifier", "admin@gmail.com");
-    setValue("password", "admin123");
+    setValue("identifier", "ishtiakahmed01999@gmail.com");
+    setValue("password", "123456Aa!");
   };
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">

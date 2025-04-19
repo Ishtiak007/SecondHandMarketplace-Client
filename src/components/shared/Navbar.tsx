@@ -7,6 +7,7 @@ import {
   Home,
   LayoutDashboard,
   LogInIcon,
+  LogOutIcon,
   Mail,
   Phone,
   ShoppingBag,
@@ -29,9 +30,17 @@ import { useSelector } from "react-redux";
 import NavigationLink from "./NavigationLink";
 import { RootState } from "../../redux/store";
 import Container from "./Container";
+import { useAppDispatch } from "../../redux/hooks";
+import { useRouter } from "next/navigation";
+import { logout } from "../../redux/features/authSlice";
+import { logoutFromCookie } from "../../services/Auth";
+import { toast } from "sonner";
 
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.auth?.user);
+
+  const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -49,6 +58,13 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleLogout = async () => {
+    dispatch(logout());
+    await logoutFromCookie();
+    toast.success("You have been logged out successfully");
+    router.push("/");
+  };
 
   return (
     <div
@@ -136,6 +152,12 @@ export default function Navbar() {
                   Whiteicon
                 </Button>
               </Link>
+              <div onClick={handleLogout}>
+                <span className="flex gap-2 items-center text-base cursor-pointer">
+                  <LogOutIcon className="w-6 h-6" />
+                  Logout
+                </span>
+              </div>
 
               {/* profile dropdown visible for large devices */}
               {user && (

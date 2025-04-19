@@ -22,18 +22,16 @@ export default function Footer() {
         <div className="mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* brand section */}
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold">ReSellBD</h2>
-            <Link href="/" className="block">
-              <Image src="" width={80} height={80} alt="logo" />
-            </Link>
+            <h2 className="text-2xl font-bold">SecondHand Marketplace</h2>
+
             <p className="text-gray-400">
-              Elevating your reselling experience with trust & excellence.
+              Empowering your reselling journey with trust and excellence.
             </p>
           </div>
 
           {/* quick links */}
           <div>
-            <h3 className="text-xl font-semibold mb-3">Quick Links</h3>
+            <h3 className="text-xl font-semibold mb-3">Links</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
                 <Link
@@ -84,7 +82,7 @@ export default function Footer() {
               </p>
               <p className="text-gray-400">
                 <PhoneCallIcon size={18} className="inline mr-2" /> Phone: +880
-                1234 567890
+                1737223990
               </p>
               <p className="text-gray-400">
                 <MapPin size={18} className="inline mr-2" /> Dhaka, Bangladesh
@@ -126,7 +124,8 @@ export default function Footer() {
 
         {/* copyright section */}
         <div className="mt-10 border-t border-gray-700 pt-6 text-center text-gray-400 text-sm">
-          © {new Date().getFullYear()} ReSellBD. All rights reserved.
+          © {new Date().getFullYear()} SecondHand Marketplace. All rights
+          reserved.
         </div>
       </Container>
     </footer>

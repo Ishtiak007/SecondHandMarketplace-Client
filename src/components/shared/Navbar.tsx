@@ -6,13 +6,10 @@ import {
   HelpCircle,
   Home,
   LayoutDashboard,
-  LogInIcon,
   LogOutIcon,
   Mail,
-  Phone,
   ShoppingBag,
   UserCircle2,
-  UserPlus,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -68,59 +65,16 @@ export default function Navbar() {
 
   return (
     <div
-      className={` ${
+      className={`transition-all duration-700 ease-in-out ${
         isScrolled
-          ? "lg:fixed lg:top-0 lg:left-0 lg:w-full lg:bg-[#FAF6F2] lg:z-50 lg:shadow-md"
-          : ""
+          ? "lg:fixed lg:top-0 lg:left-0 lg:w-full bg-opacity-75 lg:z-50 lg:shadow-md"
+          : "lg:relative"
       }`}
     >
       <Container>
         <nav className="mt-4">
-          <div
-            className={`flex lg:items-center gap-4 flex-col lg:flex-row lg:justify-between ${
-              isScrolled ? "hidden" : ""
-            }`}
-          >
-            {/* left side */}
-
-            {/* right side */}
-            <div className="space-y-4">
-              {/* contact info */}
-              <div className="flex flex-col md:flex-row lg:items-center gap-2 md:gap-4">
-                <p className="text-sm">
-                  <Phone size={18} className="inline text-[#F59E0B]" /> Contact:
-                  +880 131 577 3424
-                </p>
-                <p className="text-sm">
-                  <Mail size={18} className="inline text-[#F59E0B]" />{" "}
-                  support@resellbd.com
-                </p>
-              </div>
-
-              {/* signin button */}
-              <div className="  flex flex-col md:flex-row md:justify-end gap-2 md:gap-4">
-                <Link href="/login" className="block ">
-                  <Button className="bg-[#F59E0B] hover:bg-[#D97706] text-[#1F2937] cursor-pointer">
-                    <LogInIcon size={18} />
-                    SignIn With Your Account
-                  </Button>
-                </Link>
-                <Link href="/register" className="block ">
-                  <Button
-                    variant="outline"
-                    className="text-[#1F2937] cursor-pointer"
-                  >
-                    <UserPlus size={18} />
-                    Create A New Account
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-4  flex justify-end lg:justify-between lg:mb-4">
+          <div className="mt-4 flex justify-end lg:justify-between lg:mb-4">
             {/* menubar */}
-
             <ul className="hidden lg:flex gap-4 text-lg">
               <li>
                 <NavigationLink route="Home" path="/" />
@@ -150,6 +104,11 @@ export default function Navbar() {
               <Link href="/wishlist">
                 <Button variant="outline" className="cursor-pointer">
                   Whiteicon
+                </Button>
+              </Link>
+              <Link href="/user/dashboard">
+                <Button variant="outline" className="cursor-pointer">
+                  Dashboard
                 </Button>
               </Link>
               <div onClick={handleLogout}>

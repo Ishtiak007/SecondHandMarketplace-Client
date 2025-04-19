@@ -1,7 +1,13 @@
-import React from "react";
+export const dynamic = "force-dynamic";
+import { Fragment } from "react";
+import { getMe } from "../../../../services/User";
+import UserProfile from "../../../../components/modules/Dashboard/UserProfile";
 
-const DashboardHomePage = () => {
-  return <div>This is dashboard home page</div>;
-};
-
-export default DashboardHomePage;
+export default async function UserProfilePage() {
+  const { data: profileData } = await getMe();
+  return (
+    <Fragment>
+      <UserProfile profileData={profileData} />
+    </Fragment>
+  );
+}

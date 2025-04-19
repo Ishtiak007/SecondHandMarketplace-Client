@@ -16,14 +16,17 @@ import {
 import Link from "next/link";
 import { getCurrentUser } from "../../../services/Auth";
 import { ArrowBigRight, Home, Route } from "lucide-react";
-import { NavUser } from "./nav-user";
 
 const data = {
   navMain: [
     {
       title: "Profile Management",
       items: [
-        { title: "Profile", url: "/user/dashboard", icon: ArrowBigRight },
+        {
+          title: "Profile",
+          url: "/user/dashboard",
+          icon: ArrowBigRight,
+        },
       ],
     },
     {
@@ -80,7 +83,7 @@ export async function AppSidebar({
               (item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <span className="font-medium text-teal-700">
+                    <span className="font-medium text-teal-700 my-2">
                       {item.title}
                     </span>
                   </SidebarMenuButton>
@@ -89,7 +92,10 @@ export async function AppSidebar({
                       {item.items.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
-                            <Link href={subItem.url}>
+                            <Link
+                              className="bg-zinc-100 hover:bg-zinc-200 mb-2 transition-all duration-400 ease-in-out"
+                              href={subItem.url}
+                            >
                               <span>
                                 <Route size={10} />
                               </span>

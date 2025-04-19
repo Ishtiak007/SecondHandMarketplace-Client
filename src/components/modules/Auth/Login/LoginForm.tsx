@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../ui/card";
-import { Button } from "../../../ui/button";
 import { Separator } from "../../../ui/separator";
 import {
   FormControl,
@@ -20,7 +19,7 @@ import {
 } from "react-hook-form";
 import Image from "next/image";
 import loginImage from "../../../../assets/loginImage.jpg";
-import { loginValidation } from "./LoginValidation";
+import { loginValidation } from "./Login.Validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function LoginForm() {
@@ -55,12 +54,7 @@ export default function LoginForm() {
           <Card className="w-full md:p-6">
             <CardHeader>
               <CardTitle className=" text-xl lg:text-2xl font-bold text-center">
-                Login
-                <div className="flex justify-center mt-4">
-                  {/* <Link href="/" className="block">
-                <Image src={logo} alt="logo" width={60} height={60} />
-              </Link> */}
-                </div>
+                Login your account
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -113,16 +107,16 @@ export default function LoginForm() {
                   Don&apos;t have an account?{" "}
                   <Link
                     href="/register"
-                    className="text-blue-500 hover:underline"
+                    className="text-blue-600 hover:underline"
                   >
                     Sign up
                   </Link>
                 </p>
                 <Separator />
-                <p className="text-center text-gray-500 text-base">
+                <p className="text-center text-gray-500 text-[15px] my-5">
                   or login with just click
                 </p>
-                <div className="flex flex-col gap-4 md:flex-row my-7">
+                <div className="flex flex-col gap-4 md:flex-row">
                   <button
                     type="submit"
                     className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white  my-4 mt-2 w-full flex-1  bg-zinc-50"

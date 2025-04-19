@@ -1,0 +1,146 @@
+"use client";
+
+import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "../../../ui/card";
+import { Button } from "../../../ui/button";
+import { Separator } from "../../../ui/separator";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../../../ui/form";
+import { Input } from "../../../ui/input";
+import {
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
+import Image from "next/image";
+import loginImage from "../../../../assets/loginImage.jpg";
+import { loginValidation } from "./LoginValidation";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+export default function LoginForm() {
+  const form = useForm({
+    resolver: zodResolver(loginValidation),
+    defaultValues: {
+      identifier: "",
+      password: "",
+    },
+  });
+  const {
+    formState: { isSubmitting },
+    setValue,
+  } = form;
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data: FieldValues) => {
+    console.log(data);
+  };
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 w-full max-w-screen-lg rounded-xl overflow-hidden shadow-xl">
+        <div className="relative">
+          <Image
+            src={loginImage}
+            alt="Login"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black opacity-35"></div>
+        </div>
+
+        <div>
+          <Card className="w-full md:p-6">
+            <CardHeader>
+              <CardTitle className=" text-xl lg:text-2xl font-bold text-center">
+                Login
+                <div className="flex justify-center mt-4">
+                  {/* <Link href="/" className="block">
+                <Image src={logo} alt="logo" width={60} height={60} />
+              </Link> */}
+                </div>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <FormProvider {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-4"
+                >
+                  <FormField
+                    control={form.control}
+                    name="identifier"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email or Phone Number</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder="Enter your email or phone number"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="password"
+                            placeholder="Enter your password"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <button
+                    type="submit"
+                    className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-md transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white  my-4 mt-2 w-full"
+                  >
+                    {isSubmitting ? "Logging..." : "Login"}
+                  </button>
+                </form>
+                <p className="text-center text-sm text-gray-600 my-5">
+                  Don&apos;t have an account?{" "}
+                  <Link
+                    href="/register"
+                    className="text-blue-500 hover:underline"
+                  >
+                    Sign up
+                  </Link>
+                </p>
+                <Separator />
+                <p className="text-center text-gray-500 text-base">
+                  or login with just click
+                </p>
+                <div className="flex flex-col gap-4 md:flex-row my-7">
+                  <button
+                    type="submit"
+                    className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white  my-4 mt-2 w-full flex-1  bg-zinc-50"
+                  >
+                    User
+                  </button>
+                  <button
+                    type="submit"
+                    className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white  my-4 mt-2 w-full flex-1 bg-zinc-50"
+                  >
+                    Admin
+                  </button>
+                </div>
+              </FormProvider>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}

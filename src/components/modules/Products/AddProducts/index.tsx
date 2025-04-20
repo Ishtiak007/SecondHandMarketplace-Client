@@ -125,8 +125,8 @@ export default function AddProductForm() {
   };
 
   return (
-    <div className="p-4 lg:w-[90%] mx-auto border rounded-md shadow-2xl">
-      <h2 className="text-2xl font-semibold mb-4 text-center my-5">
+    <div className="p-4 lg:w-[90%] mx-auto border rounded-md shadow-xl">
+      <h2 className="text-2xl font-semibold mb-4 text-center my-5 text-teal-800">
         Add a Product
       </h2>
       <FormProvider {...form}>
@@ -450,7 +450,7 @@ export default function AddProductForm() {
           <div className="mt-4">
             <button
               type="submit"
-              className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white  my-4 mt-2 w-full flex-1 bg-gray-100"
+              className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white  my-4 mt-2 w-full flex-1 "
             >
               Add Product
             </button>

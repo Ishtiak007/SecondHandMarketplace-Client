@@ -15,7 +15,7 @@ export default function UserProfile({ profileData }: { profileData: IUser }) {
   };
 
   return (
-    <div className="overflow-hidden w-[90%] mx-auto my-7 border rounded-xl">
+    <div className="overflow-hidden w-[90%] mx-auto my-7 border rounded-xl shadow-xl">
       {/* Profile Banner Section - Full Width */}
       <div className="relative w-full h-[350px]">
         <Image
@@ -34,10 +34,10 @@ export default function UserProfile({ profileData }: { profileData: IUser }) {
       <div className="px-6 py-8">
         {/* Profile Info */}
         <div className="text-center">
-          <h2 className="text-2xl font-semibold text-gray-900">
+          <h2 className="text-2xl font-semibold text-teal-800">
             {profile?.name || "User"}
           </h2>
-          <p className="text-sm text-gray-600 mt-2 flex justify-center gap-1 items-center">
+          <p className="text-sm text-teal-700 mt-2 flex justify-center gap-1 items-center">
             <Mail size={16} />
             {profile?.identifier}
           </p>

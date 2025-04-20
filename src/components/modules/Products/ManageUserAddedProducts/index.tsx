@@ -73,7 +73,7 @@ export default function ManageUserAddedProducts({
     try {
       const response = await deleteProductById(id);
       if (response?.success) {
-        toast.success("Product deleted successfully");
+        toast.success("Product deleted successfully by you");
         closeModal(); // Close modal after deletion
       } else {
         toast.error(response.error[0]?.message);
@@ -88,7 +88,7 @@ export default function ManageUserAddedProducts({
     try {
       const response = await updateProductStatusById(id, { status });
       if (response?.success) {
-        toast.success("Product status updated successfully");
+        toast.success("Product status updated successfully by you");
       } else {
         toast.error(response.error[0]?.message);
       }
@@ -315,7 +315,7 @@ export default function ManageUserAddedProducts({
   return (
     <div>
       <h1 className="text-teal-800 text-center text-lg my-5 font-semibold">
-        Manage All Products
+        Manage All Products By you
       </h1>
       <div className="w-[90%] mx-auto p-4 border rounded-md shadow-xl">
         <div className="flex gap-4 items-center ">

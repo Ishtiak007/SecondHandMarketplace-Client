@@ -45,8 +45,8 @@ import Link from "next/link";
 import { toast } from "sonner";
 import { TProduct } from "../../../../types/product";
 import {
-  deleteProductById,
-  updateProductStatusById,
+  deleteListingByAdmin,
+  updateListingStatusByAdmin,
 } from "../../../../services/ProductApi";
 
 export default function ManageAllProductsAdmin({
@@ -68,32 +68,39 @@ export default function ManageAllProductsAdmin({
     null
   );
 
-  // delete a product
   const handleDeleteProduct = async (id: string) => {
     try {
-      const response = await deleteProductById(id);
+      const response = await deleteListingByAdmin(id);
       if (response?.success) {
-        toast.success("Product deleted successfully");
-        closeModal(); // Close modal after deletion
+        toast.success("Product deleted successfully By Admin");
+        closeModal();
       } else {
-        toast.error(response.error[0]?.message);
+        const errorMessage = response?.error
+          ? response.error[0]?.message
+          : "Unknown error occurred";
+        toast.error(errorMessage);
       }
-    } catch {
-      toast.error("Something went wrong!");
+    } catch (error: any) {
+      const errorMessage =
+        error.message || "Something went wrong while deleting the product!";
+      toast.error(errorMessage);
     }
   };
 
-  // product status update
+  // Product status update handler
   const handleUpdateProductStatus = async (id: string, status: string) => {
     try {
-      const response = await updateProductStatusById(id, { status });
+      const response = await updateListingStatusByAdmin(id, status);
       if (response?.success) {
-        toast.success("Product status updated successfully");
+        toast.success("Product status updated successfully By Admin");
       } else {
-        toast.error(response.error[0]?.message);
+        toast.error(
+          response?.message || "Something went wrong during the update."
+        );
       }
-    } catch {
-      toast.error("Something went wrong!");
+    } catch (error: any) {
+      const errorMessage = error?.message || "Something went wrong!";
+      toast.error(errorMessage);
     }
   };
 

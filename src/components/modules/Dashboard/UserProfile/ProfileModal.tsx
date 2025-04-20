@@ -217,8 +217,7 @@ export default function ProfileModal({
 
           {/* Submit Button */}
           <button
-            className="hover:cursor-pointer border border-neutral-300 bg-gray-200 px-4 py-2 flex gap-3 items-center justify-center font-medium rounded-full 
-        transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white hover:border-none my-4 w-full"
+            className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out bg-teal-600 text-amber-50 hover:bg-teal-800 hover:text-white  my-4 mt-2 w-full flex-1 "
             onClick={handleSubmit}
           >
             Save Changes

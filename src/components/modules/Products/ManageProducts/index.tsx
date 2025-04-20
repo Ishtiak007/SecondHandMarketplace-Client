@@ -163,7 +163,7 @@ export default function ManageAllProducts({
           "#CDDC39",
           "#009688",
           "#9681EB",
-          "#804674",
+          "#804676",
         ];
 
         const randomColor = colors[Math.floor(Math.random() * colors.length)];

@@ -212,13 +212,13 @@ export default function ManageUsers({ users }: { users: IUser[] }) {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => handleRoleChange("user")}
-                className="cursor-pointer"
+                className="cursor-pointer text-gray-700"
               >
                 User
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleRoleChange("admin")}
-                className="cursor-pointer"
+                className="cursor-pointer text-blue-600"
               >
                 Admin
               </DropdownMenuItem>

@@ -1,14 +1,15 @@
-export const dynamic = "force-dynamic";
+import React from "react";
 import ManageUsers from "../../../../../components/modules/Dashboard/Users";
 import { getAllUsers } from "../../../../../services/UserApi";
 
-export default async function ProductsManagementPage() {
+const AllUsersManagement = async () => {
   const { data } = await getAllUsers();
-  const users = data.result ?? [];
-
+  const users = data?.result ?? [];
   return (
-    <div className="p-4">
+    <div>
       <ManageUsers users={users} />
     </div>
   );
-}
+};
+
+export default AllUsersManagement;

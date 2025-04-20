@@ -227,8 +227,18 @@ export default function ManageAllProducts({
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="cursor-pointer">
-              <Button variant="outline" className=" p-4 capitalize">
-                {product.status} <ChevronDown className="ml-1 h-4 w-4" />
+              <Button
+                variant="outline"
+                className={`p-4 capitalize ${
+                  product.status === "available"
+                    ? "bg-green-600 text-white"
+                    : product.status === "sold"
+                    ? "bg-red-600 text-white"
+                    : ""
+                } transition-all duration-300 ease-in-out hover:scale-105`}
+              >
+                {product.status}
+                <ChevronDown className="ml-1 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -236,13 +246,13 @@ export default function ManageAllProducts({
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => handleStatusChange("available")}
-                className="cursor-pointer"
+                className="cursor-pointer text-green-600"
               >
                 Available
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleStatusChange("sold")}
-                className="cursor-pointer"
+                className="cursor-pointer text-red-600"
               >
                 Sold
               </DropdownMenuItem>

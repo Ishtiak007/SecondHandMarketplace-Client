@@ -14,12 +14,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowBigLeft, ArrowBigRight, ChevronDown } from "lucide-react";
 
 import { Button } from "../../../ui/button";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
@@ -38,6 +37,11 @@ import {
 
 import { toast } from "sonner";
 import { IUser } from "../../../../types/user";
+import {
+  deleteUserById,
+  updateUserRoleById,
+  updateUserStatusById,
+} from "../../../../services/UserApi";
 
 export default function ManageUsers({ users }: { users: IUser[] }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -127,8 +131,18 @@ export default function ManageUsers({ users }: { users: IUser[] }) {
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="cursor-pointer">
-              <Button variant="outline" className=" p-4 capitalize">
+              <Button
+                variant="outline"
+                className={`p-4 capitalize ${
+                  user.status === "active"
+                    ? "bg-green-600 text-white"
+                    : user.status === "banned"
+                    ? "bg-red-600 text-white"
+                    : ""
+                } transition-all duration-300 ease-in-out hover:scale-105`}
+              >
                 {user.status}
+                <ChevronDown className="ml-1 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -136,15 +150,15 @@ export default function ManageUsers({ users }: { users: IUser[] }) {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => handleStatusChange("active")}
-                className="cursor-pointer"
+                className="cursor-pointer text-green-500"
               >
                 Active
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleStatusChange("banned")}
-                className="cursor-pointer"
+                className="cursor-pointer text-red-500"
               >
-                Banned
+                Ban
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -162,8 +176,18 @@ export default function ManageUsers({ users }: { users: IUser[] }) {
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="cursor-pointer">
-              <Button variant="outline" className=" p-4 capitalize">
+              <Button
+                variant="outline"
+                className={`p-4 capitalize ${
+                  user.role === "admin"
+                    ? "bg-blue-600 text-white"
+                    : user.role === "user"
+                    ? "bg-gray-600 text-white"
+                    : ""
+                } transition-all duration-300 ease-in-out hover:scale-105`}
+              >
                 {user.role}
+                <ChevronDown className="ml-1 h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -189,30 +213,19 @@ export default function ManageUsers({ users }: { users: IUser[] }) {
 
     {
       id: "actions",
-      header: "Actions",
+      header: "Delete",
       enableHiding: false,
       cell: ({ row }) => {
         const user = row.original;
         return (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild className="cursor-pointer">
-              <Button variant="ghost" className="h-8 w-8 p-0 ">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem
-                onClick={() => handleDeleteUser(user?._id)}
-                className="cursor-pointer"
-              >
-                <FaTrash className="mr-2 text-red-600" />
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <div className="flex  justify-center">
+            <button
+              onClick={() => handleDeleteUser(user?._id)}
+              className="cursor-pointer"
+            >
+              <FaTrash size={18} className="mr-2 text-red-700 mx-auto" />
+            </button>
+          </div>
         );
       },
     },
@@ -244,119 +257,100 @@ export default function ManageUsers({ users }: { users: IUser[] }) {
   });
 
   return (
-    <div className="w-full">
-      <div className="flex gap-4 items-center ">
-        <Input
-          placeholder="Filter user by email/phone..."
-          value={
-            (table.getColumn("identifier")?.getFilterValue() as string) ?? ""
-          }
-          onChange={(event) =>
-            table.getColumn("identifier")?.setFilterValue(event.target.value)
-          }
-          className="w-full"
-        />
-
-        <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild className="cursor-pointer">
-              <Button variant="outline">
-                Columns <ChevronDown />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+    <div>
+      <h1 className="text-teal-800 text-center text-lg my-5 font-semibold">
+        Manage All Users
+      </h1>
+      <div className="w-[90%] mx-auto p-4 border rounded-md shadow-xl">
+        <div className="flex gap-4 items-center ">
+          <Input
+            placeholder="Filter user by Email..."
+            value={
+              (table.getColumn("identifier")?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              table.getColumn("identifier")?.setFilterValue(event.target.value)
+            }
+            className="w-1/2 mx-auto"
+          />
         </div>
-      </div>
-      <div className="rounded-md border mt-4">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
+        <div className="rounded-md border mt-4">
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHead
+                      className="text-teal-700 font-semibold uppercase"
+                      key={header.id}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
                   ))}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center "
-                >
-                  No users data found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
-      <div className="flex items-center justify-between mt-4">
-        <div>
-          <p>
-            Page {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
-          </p>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center "
+                  >
+                    No users data found from Database.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
         </div>
+        <div className="flex items-center justify-between mt-4">
+          <div>
+            <p>
+              Page {table.getState().pagination.pageIndex + 1} of{" "}
+              {table.getPageCount()}
+            </p>
+          </div>
 
-        <div className="flex items-center space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              <ArrowBigLeft />
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              <ArrowBigRight />
+            </Button>
+          </div>
         </div>
       </div>
     </div>

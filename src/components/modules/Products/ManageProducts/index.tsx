@@ -410,7 +410,7 @@ export default function ManageAllProducts({
             <div className="mt-6 flex justify-between">
               <button
                 onClick={closeModal}
-                className="px-4 py-2 bg-gray-300 rounded-md text-gray-800"
+                className="px-4 py-2 bg-gray-500 rounded-md text-white cursor-pointer"
               >
                 Cancel
               </button>
@@ -420,7 +420,7 @@ export default function ManageAllProducts({
                     handleDeleteProduct(productToDelete);
                   }
                 }}
-                className="px-4 py-2 bg-red-600 text-white rounded-md"
+                className="px-4 py-2 bg-red-600 text-white rounded-md cursor-pointer"
               >
                 Delete
               </button>

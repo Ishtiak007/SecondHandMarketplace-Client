@@ -16,7 +16,6 @@ import {
   SelectValue,
 } from "../../../ui/select";
 import { Textarea } from "../../../ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import {
   FieldValues,
@@ -27,15 +26,15 @@ import {
 } from "react-hook-form";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { addProductValidation } from "./addProduct.validation";
-import { addProduct } from "../../../../services/ProductApi";
-import { districts } from "./districts";
+import { districts } from "../AddProducts/districts";
+import { TProduct } from "../../../../types/product";
+import { updateProductById } from "../../../../services/ProductApi";
 
 const conditionOptions = [
   { value: "new", label: "New" },
-  { value: "likeNew", label: "As Good As New" },
+  { value: "likeNew", label: "Like New" },
   { value: "used", label: "Used" },
-  { value: "refurbished", label: "Restored" },
+  { value: "refurbished", label: "Refurbished" },
 ];
 
 const categoryOptions = [
@@ -65,6 +64,7 @@ const categoryOptions = [
   { value: "watches", label: "Watches" },
   { value: "travel", label: "Travel" },
 ];
+
 const negotiableOptions = [
   { value: "yes", label: "Yes" },
   { value: "no", label: "No" },
@@ -72,26 +72,27 @@ const negotiableOptions = [
 
 const locationOptions = districts.map((value) => ({
   value: value,
-  label: value.replace(/\b\w/g, (char) => char.toUpperCase()),
+  label: value,
 }));
 
-export default function AddProductForm() {
+export default function ProductUpdateForm({ product }: { product: TProduct }) {
   const router = useRouter();
   const form = useForm({
     defaultValues: {
-      title: "",
-      description: "",
-      price: "",
-      condition: "",
-      category: "",
-      brand: "",
-      location: "",
-      negotiable: "",
-      warranty: "",
-      contactNumber: "",
-      images: [{ value: "" }],
+      title: product?.title || "",
+      description: product?.description || "",
+      price: product?.price || "",
+      condition: product?.condition || "",
+      category: product?.category || "",
+      brand: product?.brand || "",
+      location: product?.location || "",
+      negotiable: product?.negotiable || "",
+      warranty: product?.warranty || "",
+      contactNumber: product?.contactNumber || "",
+      images: product?.images?.map((image) => ({
+        value: image,
+      })) || [{ value: "" }],
     },
-    resolver: zodResolver(addProductValidation),
   });
 
   const { append: appendImage, fields: imageFields } = useFieldArray({
@@ -112,9 +113,9 @@ export default function AddProductForm() {
     };
 
     try {
-      const response = await addProduct(modifiedData);
+      const response = await updateProductById(product._id, modifiedData);
       if (response?.success) {
-        toast.success("Product is created successfully");
+        toast.success("Product updated successfully");
         router.push("/user/dashboard/products");
       } else {
         toast.error(response.error[0]?.message);
@@ -126,14 +127,15 @@ export default function AddProductForm() {
 
   return (
     <div className="p-4 lg:w-[90%] mx-auto border rounded-md shadow-xl">
-      <h2 className="text-2xl font-semibold mb-4 text-center my-5 text-teal-800">
-        Add a Product
+      <h2 className="text-2xl font-semibold mb-4 text-teal-800 text-center my-7">
+        You Are Updating -{" "}
+        <span className="text-blue-800">({product.title})</span>
       </h2>
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-7">
-          {/** title , category, price **/}
-          <div className="flex flex-col lg:flex-row gap-4">
-            {/** title **/}
+          {/*** title , category price ***/}
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {/*** title ***/}
             <div className="flex-1">
               <FormField
                 control={form.control}
@@ -141,12 +143,13 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Title <span className="text-red-500">**</span>
+                      Title <span className="text-red-500">***</span>
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Enter Product title"
+                        value={field.value || ""}
+                        placeholder="Enter your product title"
                         className="w-full"
                       />
                     </FormControl>
@@ -155,7 +158,7 @@ export default function AddProductForm() {
                 )}
               />
             </div>
-            {/** category **/}
+            {/*** category ***/}
             <div className="flex-1">
               <FormField
                 control={form.control}
@@ -163,7 +166,7 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Category <span className="text-red-500">**</span>
+                      Category <span className="text-red-500">***</span>
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -187,7 +190,7 @@ export default function AddProductForm() {
                 )}
               />
             </div>
-            {/** price **/}
+            {/*** price ***/}
             <div className="flex-1">
               <FormField
                 control={form.control}
@@ -195,12 +198,13 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Price <span className="text-red-500">**</span>
+                      Price <span className="text-red-500">***</span>
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Enter price"
+                        value={field.value || ""}
+                        placeholder="Enter the price"
                         className="w-full"
                       />
                     </FormControl>
@@ -213,7 +217,7 @@ export default function AddProductForm() {
 
           {/** condition, brand, location,**/}
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-            {/** condition **/}
+            {/*** condition ***/}
             <div>
               <FormField
                 control={form.control}
@@ -221,7 +225,7 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Condition <span className="text-red-500">**</span>
+                      Condition <span className="text-red-500">***</span>
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -246,7 +250,29 @@ export default function AddProductForm() {
               />
             </div>
 
-            {/** location **/}
+            {/*** brand ***/}
+            <div>
+              <FormField
+                control={form.control}
+                name="brand"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Brand</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        value={field.value || ""}
+                        placeholder="Enter the brand"
+                        className="w-full"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/* location */}
             <div>
               <FormField
                 control={form.control}
@@ -254,7 +280,7 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Location <span className="text-red-500">**</span>
+                      Location <span className="text-red-500">***</span>
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -278,41 +304,18 @@ export default function AddProductForm() {
                 )}
               />
             </div>
-
-            {/** brand **/}
-            <div>
-              <FormField
-                control={form.control}
-                name="brand"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Brand</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        placeholder="Enter brand"
-                        className="w-full"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
           </div>
 
-          {/**  negotiable, contact number,  **/}
+          {/* negotiable, contact number */}
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            {/** negotiable **/}
+            {/*** negotiable ***/}
             <div>
               <FormField
                 control={form.control}
                 name="negotiable"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      Negotiable <span className="text-red-500">**</span>
-                    </FormLabel>
+                    <FormLabel>Negotiable</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
@@ -335,7 +338,7 @@ export default function AddProductForm() {
                 )}
               />
             </div>
-            {/** contact number **/}
+            {/*** contact number ***/}
             <div>
               <FormField
                 control={form.control}
@@ -343,12 +346,13 @@ export default function AddProductForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Contact Number <span className="text-red-500">**</span>
+                      Contact Number <span className="text-red-500">***</span>
                     </FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        placeholder="Enter Your contact number"
+                        value={field.value || ""}
+                        placeholder="Enter your contact number"
                         className="w-full"
                       />
                     </FormControl>
@@ -361,20 +365,21 @@ export default function AddProductForm() {
 
           {/** description, warranty **/}
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <div>
-              {/** description **/}
+            {/*** description ***/}
+            <div className="flex-1">
               <FormField
                 control={form.control}
                 name="description"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>
-                      Description <span className="text-red-500">**</span>
+                      Description <span className="text-red-500">***</span>
                     </FormLabel>
                     <FormControl>
                       <Textarea
                         {...field}
-                        placeholder="Description about this product"
+                        value={field.value || ""}
+                        placeholder="Enter description"
                         className="w-full min-h-[200px]"
                       />
                     </FormControl>
@@ -384,20 +389,20 @@ export default function AddProductForm() {
               />
             </div>
 
-            <div>
-              {/** warranty **/}
+            {/* warranty */}
+            <div className="flex-1">
+              {/*** warranty ***/}
               <FormField
                 control={form.control}
                 name="warranty"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      Warranty<span className="text-red-500">**</span>
-                    </FormLabel>
+                    <FormLabel>Warranty</FormLabel>
                     <FormControl>
                       <Textarea
                         {...field}
-                        placeholder="Shor explaination Warranty details"
+                        value={field.value || ""}
+                        placeholder="Enter warranty details"
                         className="w-full min-h-[200px]"
                       />
                     </FormControl>
@@ -408,10 +413,10 @@ export default function AddProductForm() {
             </div>
           </div>
 
-          {/** images **/}
+          {/* images */}
           <div>
             <Label>
-              Images URL<span className="text-red-500">**</span>
+              Images URL<span className="text-red-500">***</span>
             </Label>
             <div className="grid grid-cols-2 border rounded-md p-3 my-2">
               <div className="flex justify-center items-center">
@@ -423,26 +428,27 @@ export default function AddProductForm() {
                   <Plus className="" /> Add Image Field
                 </button>
               </div>
-
-              <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-                {/** Dynamic image fields **/}
-                {imageFields.map((imageField, index) => (
-                  <div key={imageField.id}>
-                    <FormField
-                      control={form.control}
-                      name={`images.${index}.value`}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Image URL ({index + 1})</FormLabel>
-                          <FormControl>
-                            <Input {...field} value={field.value || ""} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                ))}
+              <div>
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                  {/*** Dynamic image fields ***/}
+                  {imageFields.map((imageField, index) => (
+                    <div key={imageField.id}>
+                      <FormField
+                        control={form.control}
+                        name={`images.${index}.value`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Image {index + 1}</FormLabel>
+                            <FormControl>
+                              <Input {...field} value={field.value || ""} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -452,7 +458,7 @@ export default function AddProductForm() {
               type="submit"
               className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out bg-teal-600 text-amber-50 hover:bg-teal-800 hover:text-white  my-4 mt-2 w-full flex-1 "
             >
-              Add Product
+              Update This Product
             </button>
           </div>
         </form>

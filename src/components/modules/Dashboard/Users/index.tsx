@@ -52,12 +52,17 @@ export default function ManageUsers({ users }: { users: IUser[] }) {
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [userToDelete, setuserToDelete] = React.useState<string | null>(null);
+
   // delete a user
-  const handleDeleteUser = async (id: string) => {
+  const handleDeleteuser = async (id: string) => {
     try {
       const response = await deleteUserById(id);
       if (response?.success) {
         toast.success("User deleted successfully");
+        closeModal(); // Close modal after deletion
       } else {
         toast.error(response.error[0]?.message);
       }
@@ -92,6 +97,18 @@ export default function ManageUsers({ users }: { users: IUser[] }) {
     } catch {
       toast.error("Something went wrong!");
     }
+  };
+
+  // Open the confirmation modal
+  const openModal = (id: string) => {
+    setuserToDelete(id);
+    setIsModalOpen(true);
+  };
+
+  // Close the confirmation modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setuserToDelete(null);
   };
 
   const columns: ColumnDef<IUser>[] = [
@@ -220,7 +237,7 @@ export default function ManageUsers({ users }: { users: IUser[] }) {
         return (
           <div className="flex  justify-center">
             <button
-              onClick={() => handleDeleteUser(user?._id)}
+              onClick={() => openModal(user?._id)}
               className="cursor-pointer"
             >
               <FaTrash size={18} className="mr-2 text-red-700 mx-auto" />
@@ -353,6 +370,36 @@ export default function ManageUsers({ users }: { users: IUser[] }) {
           </div>
         </div>
       </div>
+      {/* Confirmation Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-20 flex justify-center items-center z-20 transition-opacity duration-300 ease-out">
+          <div className="bg-white p-6 rounded-lg w-96 shadow-lg transform transition-all duration-300 ease-out opacity-100 translate-y-0">
+            <h3 className="text-xl font-semibold">Confirm Deletion</h3>
+            <p className="mt-4 text-sm text-gray-700">
+              Are you sure you want to delete this user? This action cannot be
+              undone.
+            </p>
+            <div className="mt-6 flex justify-between">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-gray-500 rounded-md text-white cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  if (userToDelete) {
+                    handleDeleteuser(userToDelete);
+                  }
+                }}
+                className="px-4 py-2 bg-red-600 text-white rounded-md cursor-pointer"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,15 +1,15 @@
 import React from "react";
 import { getProductsByUser } from "../../../../../services/ProductApi";
-import ManageAllProducts from "../../../../../components/modules/Products/ManageProducts";
+import ManageUserAddedProducts from "../../../../../components/modules/Products/ManageUserAddedProducts";
 
-const AllProductsForManage = async () => {
+const UserAddedProducts = async () => {
   const { data } = await getProductsByUser();
   const products = data ?? [];
   return (
     <div>
-      <ManageAllProducts products={products} />
+      <ManageUserAddedProducts products={products} />
     </div>
   );
 };
 
-export default AllProductsForManage;
+export default UserAddedProducts;

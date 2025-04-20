@@ -33,7 +33,7 @@ const data = {
       title: "Manage Products",
       items: [
         { title: "Add Product", url: "/user/dashboard/products/add-product" },
-        { title: "All Products", url: "/user/dashboard/products" },
+        { title: "Your added Products", url: "/user/dashboard/products" },
       ],
     },
     {
@@ -51,6 +51,15 @@ const data = {
     {
       title: "Manage All Users",
       items: [{ title: "All Users", url: "/admin/dashboard/users" }],
+    },
+    {
+      title: "Manage All Products",
+      items: [
+        {
+          title: "Manage All Products",
+          url: "/admin/dashboard/manageAllProducts",
+        },
+      ],
     },
   ],
 };

@@ -49,7 +49,7 @@ import {
   updateProductStatusById,
 } from "../../../../services/ProductApi";
 
-export default function ManageAllProducts({
+export default function ManageAllProductsAdmin({
   products,
 }: {
   products: TProduct[];

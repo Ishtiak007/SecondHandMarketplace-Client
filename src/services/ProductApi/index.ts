@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
@@ -226,6 +227,35 @@ export const updateListingStatusByAdmin = async (
     console.error("Error in updateListingStatusByAdmin:", error);
     throw new Error(
       error.message || "Something went wrong while updating the listing status"
+    );
+  }
+};
+
+// Update product by admin
+export const updateListingByAdmin = async (id: string, updateData: object) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/listings/admin/${id}/update`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: (await cookies()).get("accessToken")!.value, // Retrieve the token from localStorage (or cookies if needed)
+        },
+        body: JSON.stringify(updateData), // Send the updateData as the request body
+      }
+    );
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Failed to update the listing");
+    }
+    revalidateTag("PRODUCT");
+    const data = await res.json();
+    return data; // Return the response data from the API (e.g., updated listing)
+  } catch (error: any) {
+    throw new Error(
+      error.message || "Something went wrong while updating the listing"
     );
   }
 };

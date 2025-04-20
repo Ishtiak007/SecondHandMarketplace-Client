@@ -277,7 +277,7 @@ export default function ManageAllProductsAdmin({
         return (
           <div className="flex items-center justify-center gap-7">
             <Link
-              href={`/user/dashboard/products/update-product/${product?._id}`}
+              href={`/admin/dashboard/manageAllProducts/update-productByAdmin/${product?._id}`}
             >
               <EditIcon size={18} className=" text-green-700" />
             </Link>

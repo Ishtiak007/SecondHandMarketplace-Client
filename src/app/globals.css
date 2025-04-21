@@ -9,11 +9,35 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Hides the scrollbar for all browsers */
-/* Add this in your global CSS or Tailwind config */
 .scrollbar-hidden {
-  -ms-overflow-style: none; /* for IE and Edge */
-  scrollbar-width: none; /* for Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* for banner section */
+#app {
+  height: 100%;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
 :root {

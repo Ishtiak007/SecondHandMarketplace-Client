@@ -40,6 +40,15 @@
   object-fit: fill;
 }
 
+/* parallex section */
+.linkItemImg {
+  background-image: url("../assets/CartCar.jpg");
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

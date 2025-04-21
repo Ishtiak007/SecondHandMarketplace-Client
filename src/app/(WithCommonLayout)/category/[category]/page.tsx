@@ -1,7 +1,7 @@
 import { Fragment } from "react";
+import ProductCardForCategory from "../../../../components/ui/core/ProductCardForCategory";
 import { TProduct } from "../../../../types/product";
 import { getProductsByCategory } from "../../../../services/ProductApi";
-import ProductCardForCategory from "../../../../components/ui/core/ProductCardForCategory";
 import Container from "../../../../components/shared/Container";
 
 export default async function CategoryPage({
@@ -17,7 +17,7 @@ export default async function CategoryPage({
   if (!(products ?? false)) {
     return (
       <Fragment>
-        <p className="text-center mt-[18%] text-lg">
+        <p className="text-center mt-[15%] text-gray-500 text-lg">
           No items available under this category at the moment. ❗❗❗
         </p>
       </Fragment>

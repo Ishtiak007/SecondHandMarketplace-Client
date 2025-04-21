@@ -66,9 +66,9 @@ export default function Navbar() {
 
   return (
     <div
-      className={`transition-all duration-700 ease-in-out ${
+      className={`transition-all duration-200 ease-in-out ${
         isScrolled
-          ? "lg:fixed lg:top-0 lg:left-0 lg:w-full bg-opacity-75 lg:z-50 lg:shadow-md"
+          ? "lg:fixed lg:top-0 lg:left-0 lg:w-full bg-opacity-75 lg:z-50 lg:shadow-md bg-white"
           : "lg:relative"
       }`}
     >
@@ -77,7 +77,7 @@ export default function Navbar() {
           <div className="mt-4 flex justify-end lg:justify-between lg:mb-4">
             <div>SecondHand Marketplace</div>
             {/* menubar */}
-            <ul className="hidden lg:flex gap-4 text-lg">
+            <ul className="hidden lg:flex gap-4 text-base font-medium">
               <li>
                 <NavigationLink route="Home" path="/" />
               </li>
@@ -88,30 +88,37 @@ export default function Navbar() {
                 <NavigationLink route="About Us" path="/aboutUs" />
               </li>
               <li>
-                <NavigationLink route="Contact Us" path="/contactUs" />
+                <NavigationLink route="Contact" path="/contactUs" />
               </li>
               <li>
-                <NavigationLink route="Blogs" path="/blogs" />
+                <NavigationLink route="Blog" path="/blogs" />
               </li>
               <li>
-                <NavigationLink route="FAQs" path="/faq" />
+                <NavigationLink route="FAQ" path="/faq" />
               </li>
             </ul>
 
             <div className="flex items-center gap-4">
-              <Link href="/wishlist">
-                <Button variant="outline" className="cursor-pointer">
-                  Bookmarked Lists
-                </Button>
-              </Link>
               <Link href="/user/dashboard">
-                <Button variant="outline" className="cursor-pointer">
+                <Button
+                  variant="outline"
+                  className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50"
+                >
                   Dashboard
                 </Button>
               </Link>
+              <Link href="/bookmarks">
+                <Button
+                  variant="outline"
+                  className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50"
+                >
+                  Bookmarked Lists
+                </Button>
+              </Link>
+
               {user && (
                 <div onClick={handleLogout}>
-                  <span className="flex gap-2 items-center text-base cursor-pointer">
+                  <span className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50">
                     <LogOutIcon className="w-6 h-6" />
                     Logout
                   </span>
@@ -122,7 +129,7 @@ export default function Navbar() {
               {!user && (
                 <div className="hidden lg:flex">
                   <Link href={"/login"}>
-                    <span className="flex gap-2 items-center text-base cursor-pointer">
+                    <span className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50">
                       <LogIn className="w-6 h-6" />
                       Login
                     </span>

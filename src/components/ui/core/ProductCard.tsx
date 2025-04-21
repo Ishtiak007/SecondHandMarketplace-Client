@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
-import { Heart } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import { Card, CardContent } from "../card";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { FaHeart } from "react-icons/fa6";
+import { FaBookmark } from "react-icons/fa6";
 import { TProduct } from "../../../types/product";
 import { RootState } from "../../../redux/store";
 import {
@@ -70,14 +70,14 @@ export default function ProductCard({ product }: { product: TProduct }) {
                 onClick={
                   isInWishlist ? handleRemoveFromWishlist : handleAddToWishlist
                 }
-                className={`hover:text-red-500 cursor-pointer ${
+                className={`hover:text-teal-700 cursor-pointer ${
                   isInWishlist ? "text-red-500" : ""
                 }`}
               >
                 {isInWishlist ? (
-                  <FaHeart className="w-5 h-5 text-red-500" />
+                  <FaBookmark size={25} className=" text-teal-700" />
                 ) : (
-                  <Heart className="w-5 h-5" />
+                  <Bookmark size={25} className="" />
                 )}
               </button>
             </div>

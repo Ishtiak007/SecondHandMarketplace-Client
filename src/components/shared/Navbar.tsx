@@ -101,7 +101,7 @@ export default function Navbar() {
             <div className="flex items-center gap-4">
               <Link href="/wishlist">
                 <Button variant="outline" className="cursor-pointer">
-                  White Lists
+                  Bookmarked Lists
                 </Button>
               </Link>
               <Link href="/user/dashboard">

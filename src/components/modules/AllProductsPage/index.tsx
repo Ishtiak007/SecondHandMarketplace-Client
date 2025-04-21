@@ -116,12 +116,12 @@ export default function AllProducts({ products }: { products: TProduct[] }) {
           </div>
 
           {/* Pagination actions */}
-          <div className="flex justify-center items-center gap-2 my-12">
+          <div className="flex justify-center items-center gap-5 my-12">
             <Button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
               size="sm"
-              className="bg-[#F59E0B] hover:bg-[#D97706] text-white cursor-pointer"
+              className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-800 hover:text-white  my-4 mt-2 bg-teal-700 text-white"
             >
               Previous
             </Button>
@@ -134,7 +134,7 @@ export default function AllProducts({ products }: { products: TProduct[] }) {
               }
               disabled={currentPage === totalPages}
               size="sm"
-              className="bg-[#F59E0B] hover:bg-[#D97706] text-white cursor-pointer"
+              className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-800 hover:text-white  my-4 mt-2 bg-teal-700 text-white"
             >
               Next
             </Button>

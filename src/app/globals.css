@@ -9,6 +9,13 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Hides the scrollbar for all browsers */
+/* Add this in your global CSS or Tailwind config */
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* for IE and Edge */
+  scrollbar-width: none; /* for Firefox */
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

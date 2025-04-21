@@ -322,7 +322,7 @@ export default function ManageAllProductsAdmin({
   return (
     <div>
       <h1 className="text-teal-800 text-center text-lg my-5 font-semibold">
-        Manage All Products
+        Manage All Products By - Admin
       </h1>
       <div className="w-[90%] mx-auto p-4 border rounded-md shadow-xl">
         <div className="flex gap-4 items-center ">

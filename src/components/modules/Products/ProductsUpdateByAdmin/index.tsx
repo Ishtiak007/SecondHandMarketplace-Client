@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import {
   FormControl,
@@ -28,10 +29,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { districts } from "../AddProducts/districts";
 import { TProduct } from "../../../../types/product";
-import {
-  updateListingByAdmin,
-  updateProductById,
-} from "../../../../services/ProductApi";
+import { updateListingByAdmin } from "../../../../services/ProductApi";
 
 const conditionOptions = [
   { value: "new", label: "New" },
@@ -137,7 +135,7 @@ export default function UpdateProductByAdminForm({
   return (
     <div className="p-4 lg:w-[90%] mx-auto border rounded-md shadow-xl">
       <h2 className="text-2xl font-semibold mb-4 text-teal-800 text-center my-7">
-        You Are Updating -{" "}
+        Admin Are Updating -{" "}
         <span className="text-blue-800">({product.title})</span>
       </h2>
       <FormProvider {...form}>

@@ -1,133 +1,97 @@
+"use client";
+import { motion } from "framer-motion";
 import {
-  Contact,
-  Facebook,
-  Home,
-  Info,
-  Instagram,
-  Linkedin,
-  MailIcon,
-  MapPin,
-  PhoneCallIcon,
-  ShoppingBag,
-  Twitter,
-} from "lucide-react";
-import Container from "./Container";
-import Image from "next/image";
-import Link from "next/link";
+  BsFacebook,
+  BsInstagram,
+  BsTwitter,
+  BsPinterest,
+} from "react-icons/bs";
 
-export default function Footer() {
+const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white py-10 px-4 mt-4">
-      <Container>
-        <div className="mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* brand section */}
-          <div className="space-y-2">
-            <h2 className="text-2xl font-bold">SecondHand Marketplace</h2>
-
-            <p className="text-gray-400">
-              Empowering your reselling journey with trust and excellence.
-            </p>
+    <motion.div
+      initial={{ height: 0 }}
+      whileInView={{ height: "auto" }}
+      transition={{ duration: 1 }}
+      className="bg-teal-800 p-10"
+    >
+      <div className="grid md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 place-items-start gap-8 text-white">
+        <div>
+          <p className="w-[80%] lg:w-[80%] mt-3 text-center">
+            SecondHand Marketplace: Your Go-To Platform for Buying and Selling
+            Pre-Loved Products
+          </p>
+        </div>
+        <div>
+          <div className="font-bold mb-6">Services</div>
+          <div className="flex flex-col gap-4">
+            <a href="" className="text-sm hover:underline">
+              Free Delivery on Select Products
+            </a>
+            <a href="" className="text-sm hover:underline">
+              Secure Payment Options
+            </a>
+            <a href="" className="text-sm hover:underline">
+              Seller Support & Assistance
+            </a>
+            <a href="" className="text-sm hover:underline">
+              Product Warranty Information
+            </a>
+            <a href="" className="text-sm hover:underline">
+              Product Listing for Sellers
+            </a>
           </div>
+        </div>
+        {/* .......Customer Support....... */}
+        <div>
+          <div className="font-bold mb-6">Customer Support</div>
+          <div className="flex flex-col gap-4">
+            <a href="" className="text-sm hover:underline">
+              Help Center
+            </a>
+            <a href="" className="text-sm hover:underline">
+              Return & Refund Policy
+            </a>
+            <a href="" className="text-sm hover:underline">
+              Shipping & Delivery Information
+            </a>
+            <a href="" className="text-sm hover:underline">
+              Terms & Conditions
+            </a>
+            <a href="" className="text-sm hover:underline">
+              Privacy Policy
+            </a>
+          </div>
+        </div>
 
-          {/* quick links */}
+        <div>
+          <div className="font-bold mb-3">Contact Information</div>
+          <h2 className="text-sm mb-4">support@secondhandmarketplace.com</h2>
+          <h2 className="text-sm">+8801521742729</h2>
           <div>
-            <h3 className="text-xl font-semibold mb-3">Links</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li>
-                <Link
-                  href="/"
-                  className="hover:text-[#F59E0B] duration-150 transition "
-                >
-                  <Home size={18} className="inline mr-2" />
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:text-[#F59E0B] duration-150 transition"
-                >
-                  <Info size={18} className="inline mr-2" />
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products"
-                  className="hover:text-[#F59E0B] duration-150 transition"
-                >
-                  <ShoppingBag size={18} className="inline mr-2" />
-                  Browse Products
-                </Link>
-              </li>
-              <li>
-                <a
-                  href="/contact"
-                  className="hover:text-[#F59E0B] duration-150 transition"
-                >
-                  <Contact size={18} className="inline mr-2" />
-                  Contact Us
+            <div className="font-bold my-6">
+              <h1>Follow Us (Social Media)</h1>
+
+              <div className="flex gap-4 mt-4">
+                <a href="" className="hover:scale-110 text-xl">
+                  <BsFacebook />
                 </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* contact info */}
-          <div>
-            <h3 className="text-xl font-semibold mb-3">Contact</h3>
-            <div className="space-y-2">
-              <p className="text-gray-400">
-                <MailIcon size={18} className="inline mr-2" /> Email:
-                support@resellbd.com
-              </p>
-              <p className="text-gray-400">
-                <PhoneCallIcon size={18} className="inline mr-2" /> Phone: +880
-                1737223990
-              </p>
-              <p className="text-gray-400">
-                <MapPin size={18} className="inline mr-2" /> Dhaka, Bangladesh
-              </p>
-            </div>
-          </div>
-
-          {/* social icons */}
-          <div>
-            <h3 className="text-xl font-semibold mb-3">Follow Us</h3>
-            <div className="flex space-x-4">
-              <Link
-                href="#"
-                className="hover:text-blue-400 transition duration-150"
-              >
-                <Facebook />
-              </Link>
-              <Link
-                href="#"
-                className="hover:text-blue-500 transition duration-150"
-              >
-                <Twitter />
-              </Link>
-              <Link
-                href="#"
-                className="hover:text-pink-500 transition duration-150"
-              >
-                <Instagram />
-              </Link>
-              <Link
-                href="#"
-                className="hover:text-blue-600 transition duration-150"
-              >
-                <Linkedin />
-              </Link>
+                <a href="" className="hover:scale-110 text-xl">
+                  <BsInstagram />
+                </a>
+                <a href="" className="hover:scale-110 text-xl">
+                  <BsTwitter />
+                </a>
+                <a href="" className="hover:scale-110 text-xl">
+                  <BsPinterest />
+                </a>
+              </div>
             </div>
           </div>
         </div>
-
-        {/* copyright section */}
-        <div className="mt-10 border-t border-gray-700 pt-6 text-center text-gray-400 text-sm">
-          © {new Date().getFullYear()} SecondHand Marketplace. All rights
-          reserved.
-        </div>
-      </Container>
-    </footer>
+      </div>
+    </motion.div>
   );
-}
+};
+
+export default Footer;

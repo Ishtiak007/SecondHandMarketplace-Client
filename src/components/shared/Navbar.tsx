@@ -10,17 +10,8 @@ import {
   LogOutIcon,
   Mail,
   ShoppingBag,
-  UserCircle2,
+  Menu as HamburgerMenu, // Import the hamburger icon
 } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
 import { Fragment, useEffect, useState } from "react";
@@ -36,11 +27,10 @@ import { toast } from "sonner";
 
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.auth?.user);
-
   const router = useRouter();
   const dispatch = useAppDispatch();
-
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to handle mobile menu visibility
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,17 +56,28 @@ export default function Navbar() {
 
   return (
     <div
-      className={`transition-all duration-200 ease-in-out ${
+      className={`transition-all duration-300 ease-in-out ${
         isScrolled
           ? "lg:fixed lg:top-0 lg:left-0 lg:w-full bg-opacity-75 lg:z-50 lg:shadow-md bg-white"
-          : "lg:relative"
+          : "lg:relative shadow-sm p-1"
       }`}
     >
       <Container>
         <nav className="mt-4">
-          <div className="mt-4 flex justify-end lg:justify-between lg:mb-4">
+          <div className="mt-4 flex justify-between items-center lg:mb-4">
             <div>SecondHand Marketplace</div>
-            {/* menubar */}
+
+            {/* Mobile Hamburger Menu */}
+            <div className="lg:hidden flex items-center">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-teal-700"
+              >
+                <HamburgerMenu size={28} />
+              </button>
+            </div>
+
+            {/* Desktop Menu */}
             <ul className="hidden lg:flex gap-4 text-base font-medium">
               <li>
                 <NavigationLink route="Home" path="/" />
@@ -98,11 +99,12 @@ export default function Navbar() {
               </li>
             </ul>
 
-            <div className="flex items-center gap-4">
+            {/* Action Buttons */}
+            <div className="lg:flex items-center gap-4">
               <Link href="/user/dashboard">
                 <Button
                   variant="outline"
-                  className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50"
+                  className="hover:cursor-pointer border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50"
                 >
                   Dashboard
                 </Button>
@@ -110,7 +112,7 @@ export default function Navbar() {
               <Link href="/bookmarks">
                 <Button
                   variant="outline"
-                  className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50"
+                  className="hover:cursor-pointer border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50"
                 >
                   Bookmarked Lists
                 </Button>
@@ -118,111 +120,91 @@ export default function Navbar() {
 
               {user && (
                 <div onClick={handleLogout}>
-                  <span className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50">
+                  <span className="hover:cursor-pointer border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50">
                     <LogOutIcon className="w-6 h-6" />
                     Logout
                   </span>
                 </div>
               )}
 
-              {/* profile dropdown visible for large devices */}
               {!user && (
                 <div className="hidden lg:flex">
                   <Link href={"/login"}>
-                    <span className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50">
+                    <span className="hover:cursor-pointer border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50">
                       <LogIn className="w-6 h-6" />
                       Login
                     </span>
                   </Link>
                 </div>
               )}
-
-              {/* full dropdown visible for small devices */}
-              <div className="lg:hidden">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild className="cursor-pointer">
-                    <UserCircle2 size={28} />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel>Explore</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                      <DropdownMenuItem>
-                        <Link
-                          href="/"
-                          className="flex gap-2 text-base items-center"
-                        >
-                          <Home className="w-6 h-6  " />
-                          Home
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link
-                          href="/products"
-                          className="flex gap-2 text-base items-center"
-                        >
-                          <ShoppingBag className="w-6 h-6" />{" "}
-                          {/* Browse Products */}
-                          Products
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link
-                          href="/aboutUs"
-                          className="flex gap-2 text-base items-center"
-                        >
-                          <Building2 className="w-6 h-6" />
-                          About Us
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link
-                          href="/contactUs"
-                          className="flex gap-2 text-base items-center"
-                        >
-                          <Mail className="w-6 h-6" />
-                          Contact Us
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link
-                          href="/faq"
-                          className="flex gap-2 text-base items-center"
-                        >
-                          <HelpCircle className="w-6 h-6" />
-                          FAQs
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link
-                          href="/blogs"
-                          className="flex gap-2 text-base items-center"
-                        >
-                          <Book className="w-6 h-6" />
-                          Blogs
-                        </Link>
-                      </DropdownMenuItem>
-                      {user && (
-                        <Fragment>
-                          <DropdownMenuItem>
-                            <Link
-                              href="/user/dashboard"
-                              className="flex gap-2 text-base items-center"
-                            >
-                              <LayoutDashboard className="w-6 h-6" />
-                              Dashboard
-                            </Link>
-                          </DropdownMenuItem>
-
-                          <Separator />
-                        </Fragment>
-                      )}
-                    </DropdownMenuGroup>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
             </div>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden bg-white shadow-md py-4 px-6">
+              <ul className="space-y-4">
+                <li>
+                  <Link href="/" className="flex gap-2 text-base items-center">
+                    <Home className="w-6 h-6" /> Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/products"
+                    className="flex gap-2 text-base items-center"
+                  >
+                    <ShoppingBag className="w-6 h-6" /> Products
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/aboutUs"
+                    className="flex gap-2 text-base items-center"
+                  >
+                    <Building2 className="w-6 h-6" /> About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contactUs"
+                    className="flex gap-2 text-base items-center"
+                  >
+                    <Mail className="w-6 h-6" /> Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/faq"
+                    className="flex gap-2 text-base items-center"
+                  >
+                    <HelpCircle className="w-6 h-6" /> FAQs
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/blogs"
+                    className="flex gap-2 text-base items-center"
+                  >
+                    <Book className="w-6 h-6" /> Blogs
+                  </Link>
+                </li>
+                {user && (
+                  <Fragment>
+                    <li>
+                      <Link
+                        href="/user/dashboard"
+                        className="flex gap-2 text-base items-center"
+                      >
+                        <LayoutDashboard className="w-6 h-6" /> Dashboard
+                      </Link>
+                    </li>
+                    <Separator />
+                  </Fragment>
+                )}
+              </ul>
+            </div>
+          )}
         </nav>
       </Container>
     </div>

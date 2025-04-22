@@ -1,7 +1,6 @@
+export const dynamic = "force-dynamic";
 import PurchaseHistory from "../../../../../../components/modules/Dashboard/Orders/PurchaseHistory";
 import { getPurchaseHistory } from "../../../../../../services/OrderApi";
-
-export const dynamic = "force-dynamic";
 
 export default async function PurchaseHistoryPage() {
   const { data } = await getPurchaseHistory();

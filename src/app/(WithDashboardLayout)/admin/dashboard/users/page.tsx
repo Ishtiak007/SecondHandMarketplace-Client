@@ -1,4 +1,4 @@
-import React from "react";
+export const dynamic = "force-dynamic";
 import ManageUsers from "../../../../../components/modules/Dashboard/Users";
 import { getAllUsers } from "../../../../../services/UserApi";
 

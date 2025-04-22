@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
+import { ReactNode } from "react";
 
 export type TUser = {
   name: string;

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import React from "react";
 import ManageAllProductsAdmin from "../../../../../components/modules/Products/ManageAllProductByAdmin";
 import { getAllProducts } from "../../../../../services/ProductApi";

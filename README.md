@@ -13,7 +13,7 @@ This platform connects buyers and sellers of pre-owned goods, offering a seamles
 
 Start browsing today and find amazing deals while supporting sustainability! 🌱
 
-**Live Demo**: [SecondHand Marketplace]()
+**Live Demo (Frontend)**: [SecondHand Marketplace](https://second-hand-marketplace-client-seven.vercel.app)
 
 ## Roles in **SecondHand Marketplace**
 
@@ -125,7 +125,9 @@ Install the required dependencies using npm or yarn:
 npm install
 ```
 
-## 4. Run the Application
+## 4. Import .env file
+
+## 5. Run the Application
 
 Start the development server:
 

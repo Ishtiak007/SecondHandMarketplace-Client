@@ -68,7 +68,7 @@ const ContactUsPage = () => {
               <div className="mt-8 text-center">
                 <button
                   type="submit"
-                  className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-800 hover:text-white  my-4 mt-2 bg-teal-700 text-white mx-auto my-5"
+                  className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-800 hover:text-white mt-2 bg-teal-700 text-white mx-auto my-5"
                 >
                   Send Message
                 </button>

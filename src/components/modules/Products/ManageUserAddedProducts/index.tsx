@@ -15,12 +15,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import {
-  ArrowBigLeft,
-  ArrowBigRight,
-  ChevronDown,
-  EditIcon,
-} from "lucide-react";
+import { ChevronDown, EditIcon } from "lucide-react";
 
 import { Button } from "../../../ui/button";
 import {
@@ -379,7 +374,7 @@ export default function ManageUserAddedProducts({
             </TableBody>
           </Table>
         </div>
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex justify-center items-center gap-5 my-7">
           <div>
             <p>
               Page {table.getState().pagination.pageIndex + 1} of{" "}
@@ -391,18 +386,20 @@ export default function ManageUserAddedProducts({
             <Button
               variant="outline"
               size="sm"
+              className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-800 hover:text-white  my-4 mt-2 bg-teal-700 text-white"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
             >
-              <ArrowBigLeft />
+              Previous
             </Button>
             <Button
               variant="outline"
               size="sm"
+              className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-800 hover:text-white  my-4 mt-2 bg-teal-700 text-white"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
             >
-              <ArrowBigRight />
+              Next
             </Button>
           </div>
         </div>

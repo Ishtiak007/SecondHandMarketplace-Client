@@ -36,8 +36,8 @@ export default function CheckoutPage({
 
   return (
     <Container className="my-5">
-      <div className=" mx-auto  flex gap-4">
-        <div className="lg:w-[40%] space-y-4 overflow-y-auto max-h-screen scrollbar-hidden shadow-md rounded-md">
+      <div className="  lg:flex space-y-3 gap-4">
+        <div className="lg:w-[40%] w-full space-y-4 overflow-y-auto max-h-screen scrollbar-hidden shadow-md rounded-md">
           <div className="p-6">
             <p className="text-2xl font-semibold text-teal-700">
               SecondHand Marketplace - Terms & Conditions
@@ -169,7 +169,7 @@ export default function CheckoutPage({
           </div>
         </div>
 
-        <div className="lg:w-[60%] space-y-6">
+        <div className="lg:w-[60%] w-full space-y-6">
           <div className="bg-white p-6  shadow-md rounded-md">
             <div className="space-y-5">
               {/* Product Details */}
@@ -205,7 +205,7 @@ export default function CheckoutPage({
 
               <hr className="border-t border-gray-300" />
 
-              <div className="flex justify-around items-start gap-4">
+              <div className="lg:flex justify-around items-start gap-4 space-y-2">
                 {/* Seller  */}
                 <div>
                   <p className="font-semibold text-lg text-gray-800">Seller</p>

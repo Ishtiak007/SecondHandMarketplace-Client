@@ -109,14 +109,6 @@ export default function Navbar() {
                   Dashboard
                 </Button>
               </Link>
-              <Link href="/bookmarks">
-                <Button
-                  variant="outline"
-                  className="hover:cursor-pointer border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50"
-                >
-                  Bookmarked Lists
-                </Button>
-              </Link>
 
               {user && (
                 <div onClick={handleLogout}>

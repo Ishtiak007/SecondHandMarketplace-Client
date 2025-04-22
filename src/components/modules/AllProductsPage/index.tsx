@@ -14,6 +14,8 @@ import { useState } from "react";
 import { Button } from "../../ui/button";
 import ProductSkeleton from "../../ui/core/skeleton/ProductSkeleton";
 import { TProduct } from "../../../types/product";
+import Link from "next/link";
+import { Bookmark } from "lucide-react";
 
 export default function AllProducts({ products }: { products: TProduct[] }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -92,10 +94,18 @@ export default function AllProducts({ products }: { products: TProduct[] }) {
             <Input
               type="text"
               placeholder="You can search products by title, category or location"
-              className="w-full md:w-1/2 mx-auto my-4"
+              className="w-full md:w-1/2 my-4"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+            <Link href="/bookmarks">
+              <Button
+                variant="outline"
+                className="hover:cursor-pointer border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 items-center justify-center rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50 text-teal-800 font-semibold"
+              >
+                Your Bookmarked Lists <Bookmark />
+              </Button>
+            </Link>
           </div>
 
           {/* Product cards */}

@@ -64,8 +64,8 @@ export default function AllProducts({ products }: { products: TProduct[] }) {
 
   return (
     <Container>
-      <div className="flex gap-4">
-        <div className="sticky top-0 z-10 border rounded-md p-4">
+      <div className="lg:flex gap-4">
+        <div className="lg:sticky lg:top-0 lg:z-10 border rounded-md p-4">
           <h1 className="text-teal-800 font-semibold text-lg text-center">
             Filters
           </h1>

@@ -64,8 +64,10 @@ export default function Navbar() {
     >
       <Container>
         <nav className="mt-4">
-          <div className="mt-4 flex justify-between items-center lg:mb-4">
-            <div>SecondHand Marketplace</div>
+          <div className="mt-4 lg:flex space-y-4 justify-between items-center lg:mb-4">
+            <h1 className="lg:text-lg font-semibold">
+              SecondHand<span className="text-teal-600">Marketplace</span>
+            </h1>
 
             {/* Mobile Hamburger Menu */}
             <div className="lg:hidden flex items-center">
@@ -90,9 +92,6 @@ export default function Navbar() {
               </li>
               <li>
                 <NavigationLink route="Contact" path="/contactUs" />
-              </li>
-              <li>
-                <NavigationLink route="Blog" path="/blogs" />
               </li>
               <li>
                 <NavigationLink route="FAQ" path="/faq" />

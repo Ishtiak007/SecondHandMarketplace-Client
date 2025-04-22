@@ -17,7 +17,7 @@ Start browsing today and find amazing deals while supporting sustainability! ðŸŒ
 
 ## Roles in **SecondHand Marketplace**
 
-### **User **
+### User
 
 A unified role where users can both **buy** and **sell** items. As a user, you can:
 
@@ -25,7 +25,7 @@ A unified role where users can both **buy** and **sell** items. As a user, you c
 - List items for sale and manage your listings.
 - Communicate with sellers and buyers securely.
 
-### **Admin **
+### Admin
 
 Admins have enhanced privileges to manage the platform. Admins can:
 
@@ -33,15 +33,15 @@ Admins have enhanced privileges to manage the platform. Admins can:
 - **Approve**, **edit**, or **remove** listings.
 - Monitor transactions and user activity to maintain the integrity of the marketplace.
 
-## Key Features of **SecondHand Marketplace**
+## Key Features of SecondHand Marketplace
 
-### **User Authentication **
+### User Authentication
 
 - **Custom login system** using email/phone number and password.
 - **JWT (JSON Web Token)** for secure authentication.
 - **Password hashing** using bcrypt for enhanced security.
 
-### **User Dashboard **
+### User Dashboard
 
 - **Post an Item for Sale**: Users can list used items with descriptions, images, pricing, and categories.
 - **Manage Listings**: Update or remove item listings as necessary.
@@ -49,22 +49,22 @@ Admins have enhanced privileges to manage the platform. Admins can:
 - **Profile Management**: Edit personal details and manage your account.
 - **Wishlist Feature**: Save items for later viewing and potential purchase.
 
-### **Listings and Search **
+### Listings and Search
 
 - **Item Listings**: Users can list items for sale with detailed information such as price, condition, images, and category.
 - **Search & Filter**: A powerful filtering system based on category, price, condition, and location to help users find the right items.
 - **Mark as Sold**: Sellers can update the item status to "sold" once the transaction is completed.
 
-### **Communication & Transactions **
+### Communication & Transactions
 
 - **Order Management**: Users can track their sold or purchased items for easier management.
 
-### **Admin Features **
+### Admin Features
 
 - **User Management**: Admins can ban or unban users based on platform guidelines.
 - **Listing Management**: Admins can delete inappropriate listings that violate marketplace rules.
 
-## Tech Stack of **SecondHand Marketplace**
+## Tech Stack of SecondHand Marketplace
 
 ### **Frontend**
 

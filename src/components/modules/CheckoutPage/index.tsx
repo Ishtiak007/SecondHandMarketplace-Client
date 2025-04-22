@@ -36,8 +36,8 @@ export default function CheckoutPage({
 
   return (
     <Container className="my-5">
-      <div className=" mx-auto  grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2 space-y-4 overflow-y-auto max-h-screen scrollbar-hidden shadow-md rounded-md">
+      <div className=" mx-auto  flex gap-4">
+        <div className="lg:w-[40%] space-y-4 overflow-y-auto max-h-screen scrollbar-hidden shadow-md rounded-md">
           <div className="p-6">
             <p className="text-2xl font-semibold text-teal-700">
               SecondHand Marketplace - Terms & Conditions
@@ -169,17 +169,17 @@ export default function CheckoutPage({
           </div>
         </div>
 
-        <div className="lg:col-span-1 space-y-6">
-          <div className="bg-white p-6 overflow-y-auto max-h-screen scrollbar-hidden shadow-md rounded-md">
+        <div className="lg:w-[60%] space-y-6">
+          <div className="bg-white p-6  shadow-md rounded-md">
             <div className="space-y-5">
               {/* Product Details */}
-              <div className="lg:flex items-center gap-6">
+              <div className="lg:flex justify-center items-center gap-6">
                 {product?.images && (
                   <Image
                     src={product?.images?.[0]}
                     alt="Product Image"
-                    width={120}
-                    height={120}
+                    width={150}
+                    height={150}
                     className="rounded-md shadow-md"
                   />
                 )}
@@ -191,13 +191,13 @@ export default function CheckoutPage({
                     Category: {product?.category}
                   </p>
                   <p className="text-sm text-gray-500">
-                    Location: {product?.location}
+                    Warranty: {product?.warranty}
                   </p>
                 </div>
               </div>
 
               {/* Total Items & Price */}
-              <div className="text-sm text-gray-600 space-y-2">
+              <div className="text-sm text-gray-600 space-y-2 text-center">
                 <p className="text-xl font-semibold text-teal-800 mt-2">
                   Price: BDT {product?.price} ৳
                 </p>
@@ -205,33 +205,47 @@ export default function CheckoutPage({
 
               <hr className="border-t border-gray-300" />
 
-              {/* Seller  */}
-              <p className="font-semibold text-lg text-gray-800">Seller</p>
-              <div className="text-sm text-gray-600 space-y-2">
-                <p>
-                  <strong>Name:</strong> {product?.userID?.name}
-                </p>
-                <p>
-                  <strong>Email:</strong> {product?.userID?.identifier}
-                </p>
-              </div>
+              <div className="flex justify-around items-start gap-4">
+                {/* Seller  */}
+                <div>
+                  <p className="font-semibold text-lg text-gray-800">Seller</p>
+                  <div className="text-sm text-gray-600 space-y-2">
+                    <p>
+                      <strong>Name:</strong> {product?.userID?.name}
+                    </p>
+                    <p>
+                      <strong>Email:</strong> {product?.userID?.identifier}
+                    </p>
+                    <p>
+                      <strong>Seller Location:</strong> {product?.location}
+                    </p>
+                    <p>
+                      <strong>Seller Number:</strong> {product?.contactNumber}
+                    </p>
+                  </div>
+                </div>
 
-              <hr className="border-t border-gray-300" />
+                {/* <div className="divider border-gray-300" /> */}
 
-              {/* Buyer  */}
-              <p className="font-semibold text-lg text-gray-800">Buyer (You)</p>
-              <div className="text-sm text-gray-600 space-y-2">
-                <p>
-                  <strong>Name:</strong> {profile?.name}
-                </p>
-                <p>
-                  <strong>Email:</strong> {profile?.identifier}
-                </p>
-                {profile?.city && (
-                  <p>
-                    <strong>Location:</strong> {profile?.city}
+                <div>
+                  {/* Buyer  */}
+                  <p className="font-semibold text-lg text-gray-800">
+                    Buyer (You)
                   </p>
-                )}
+                  <div className="text-sm text-gray-600 space-y-2">
+                    <p>
+                      <strong>Name:</strong> {profile?.name}
+                    </p>
+                    <p>
+                      <strong>Email:</strong> {profile?.identifier}
+                    </p>
+                    {profile?.city && (
+                      <p>
+                        <strong>Location:</strong> {profile?.city}
+                      </p>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -274,7 +288,7 @@ export default function CheckoutPage({
                 onClick={handleConfirmPay}
                 className="w-full hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-800 hover:text-white  my-4 mt-2 bg-teal-700 text-white"
               >
-                Confirm & Pay
+                Confirm Order & Pay Now
               </Button>
             </div>
           </div>

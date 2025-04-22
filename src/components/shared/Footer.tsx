@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   BsFacebook,
   BsInstagram,
@@ -17,6 +18,11 @@ const Footer = () => {
     >
       <div className="grid md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 place-items-start gap-8 text-white">
         <div>
+          <Link href={"/"}>
+            <h1 className="lg:text-lg font-semibold">
+              SecondHand<span className="text-teal-300">Marketplace</span>
+            </h1>
+          </Link>
           <p className="w-[80%] lg:w-[80%] mt-3 text-center">
             SecondHand Marketplace: Your Go-To Platform for Buying and Selling
             Pre-Loved Products

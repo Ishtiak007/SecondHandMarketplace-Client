@@ -4,42 +4,15 @@ import React from "react";
 const ContactUsPage = () => {
   return (
     <div>
-      <div className="max-w-7xl mx-auto py-16 px-4">
+      <div className="mx-auto">
         {/* Heading Section */}
-        <div className="text-center">
-          <h2 className="text-3xl font-semibold text-teal-800">
-            Contact With Us
-          </h2>
-          <p className="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">
+        <div className="text-center bg-teal-700 p-6">
+          <h2 className="text-3xl font-semibold text-white">Contact With Us</h2>
+          <p className="text-base text-white mt-4 max-w-3xl mx-auto">
             Have any questions or need help? We’re here to assist you. Reach out
             to us through the form below, and we ll get back to you as soon as
             possible.
           </p>
-        </div>
-
-        {/* Contact Information Section */}
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 shadow-md p-3 rounded-md">
-          <div className="text-center">
-            <div className="text-3xl  mb-4">📧</div>
-            <h3 className="text-xl font-semibold text-teal-800">Email</h3>
-            <p className="text-gray-600 mt-2">
-              support@secondhandmarketplace.com
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="text-3xl  mb-4">📞</div>
-            <h3 className="text-xl font-semibold text-teal-800">Phone</h3>
-            <p className="text-gray-600 mt-2">+1 (800) 123-4567</p>
-          </div>
-
-          <div className="text-center">
-            <div className="text-3xl  mb-4">📍</div>
-            <h3 className="text-xl font-semibold text-teal-800">Our Address</h3>
-            <p className="text-gray-600 mt-2">
-              123 SecondHand St., Cityname, Country
-            </p>
-          </div>
         </div>
 
         {/* Contact Form Section */}
@@ -101,6 +74,29 @@ const ContactUsPage = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+
+        {/* Contact Information Section */}
+        <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12  p-4">
+          <div className="text-center">
+            <div className="text-3xl  mb-4">📧</div>
+            <h3 className="text-xl font-semibold text-teal-800">Email</h3>
+            <p className="text-gray-600 mt-2">ishtiak.sparrow98@gmail.com</p>
+          </div>
+
+          <div className="text-center">
+            <div className="text-3xl  mb-4">📞</div>
+            <h3 className="text-xl font-semibold text-teal-800">Phone</h3>
+            <p className="text-gray-600 mt-2">01737223990</p>
+          </div>
+
+          <div className="text-center">
+            <div className="text-3xl  mb-4">📍</div>
+            <h3 className="text-xl font-semibold text-teal-800">Our Address</h3>
+            <p className="text-gray-600 mt-2">
+              123 SecondHand St., Rangpur, Bangladesh
+            </p>
           </div>
         </div>
       </div>

@@ -13,8 +13,17 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { ChevronDown } from "lucide-react";
 import moment from "moment-timezone";
 import { Button } from "../../../../ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../../../../ui/dropdown-menu";
 import { Input } from "../../../../ui/input";
 import {
   Table,
@@ -24,13 +33,11 @@ import {
   TableHeader,
   TableRow,
 } from "../../../../ui/table";
+import { toast } from "sonner";
 import { TOrder } from "../../../../../types/order";
+import { updateOrderStatusById } from "../../../../../services/OrderApi";
 
-export default function PurchaseHistory({
-  purchaseHistory,
-}: {
-  purchaseHistory: any;
-}) {
+export default function SalesHistory({ salesHistory }: { salesHistory: any }) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -38,7 +45,20 @@ export default function PurchaseHistory({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  console.log(purchaseHistory);
+
+  // update order status
+  const handleUpdateOrderStatus = async (id: string, status: string) => {
+    try {
+      const response = await updateOrderStatusById(id, { status });
+      if (response?.success) {
+        toast.success("Order status updated successfully");
+      } else {
+        toast.error(response.error[0]?.message);
+      }
+    } catch {
+      toast.error("Something went wrong!");
+    }
+  };
 
   const columns: ColumnDef<TOrder>[] = [
     {
@@ -49,30 +69,30 @@ export default function PurchaseHistory({
       ),
     },
     {
-      accessorKey: "sellerID.name",
-      header: "Seller",
+      accessorKey: "buyerID.name",
+      header: "Buyer",
       cell: ({ row }) => {
         return (
           <div className="font-medium capitalize">
-            {row.original.sellerID?.name || "N/A"}
+            {row.original.buyerID?.name || "N/A"}
           </div>
         );
       },
     },
     {
-      accessorKey: "sellerID.identifier",
-      header: "Seller Email",
+      accessorKey: "buyerID.identifier",
+      header: "Buyer Email",
       cell: ({ row }) => {
         return (
           <div className="font-medium ">
-            {row.original.sellerID?.identifier || "N/A"}
+            {row.original.buyerID?.identifier || "N/A"}
           </div>
         );
       },
     },
     {
       accessorKey: "itemID.title",
-      header: "Product Name",
+      header: "Product",
       cell: ({ row }) => {
         return (
           <div className="font-medium capitalize">
@@ -105,20 +125,56 @@ export default function PurchaseHistory({
         );
       },
     },
-
     {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
+        const order = row.original;
+
+        const handleStatusChange = (newStatus: string) => {
+          handleUpdateOrderStatus(order._id, newStatus);
+        };
         return (
-          <div className="font-medium capitalize">{row.getValue("status")}</div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild className="cursor-pointer">
+              <Button
+                variant="outline"
+                className={`p-4 capitalize ${
+                  order.status === "pending"
+                    ? "bg-red-600 text-white"
+                    : order.status === "completed"
+                    ? "bg-green-600 text-white"
+                    : ""
+                } transition-all duration-300 ease-in-out hover:scale-105`}
+              >
+                {order.status}
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Status</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => handleStatusChange("pending")}
+                className="cursor-pointer"
+              >
+                Pending
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handleStatusChange("completed")}
+                className="cursor-pointer"
+              >
+                Completed
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         );
       },
     },
   ];
 
   const table = useReactTable({
-    data: purchaseHistory,
+    data: salesHistory,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -145,12 +201,12 @@ export default function PurchaseHistory({
   return (
     <div>
       <h1 className="text-teal-800 text-center text-lg my-5 font-semibold">
-        All Purchases History
+        All Sales History
       </h1>
       <div className="w-[95%] mx-auto p-4 border rounded-md shadow-xl">
         <div>
           <Input
-            placeholder="Filter sales history by Transaction ID"
+            placeholder="Filter Sales history by transaction ID"
             value={
               (table.getColumn("transactionId")?.getFilterValue() as string) ??
               ""
@@ -192,7 +248,7 @@ export default function PurchaseHistory({
                     data-state={row.getIsSelected() && "selected"}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell className="border-t-2 " key={cell.id}>
+                      <TableCell key={cell.id}>
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -222,7 +278,7 @@ export default function PurchaseHistory({
             </p>
           </div>
 
-          <div className="flex items-center justify-center space-x-2">
+          <div className="flex items-center space-x-2">
             <Button
               variant="outline"
               size="sm"

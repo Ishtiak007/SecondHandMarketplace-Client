@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";

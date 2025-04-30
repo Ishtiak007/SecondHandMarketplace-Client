@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { FieldValues } from "react-hook-form";
 

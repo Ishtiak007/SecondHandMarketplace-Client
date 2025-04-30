@@ -28,7 +28,6 @@ export function NavUser() {
   const handleLogout = () => {
     logout();
     toast.success("Logout successfully");
-    navigate;
   };
 
   return (

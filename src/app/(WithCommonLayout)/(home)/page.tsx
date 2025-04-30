@@ -5,6 +5,7 @@ import AllCategoryHomeSection from "../../../components/modules/Home/Categories"
 import ShopNow from "../../../components/modules/Home/ShopNow";
 import Newsletter from "../../../components/modules/Home/NewsLetter";
 import BlogSection from "../../../components/modules/Home/BlogSection";
+import { TestimonialsCards } from "../../../components/modules/Home/Testimonials";
 
 const HomePage = () => {
   return (
@@ -14,6 +15,7 @@ const HomePage = () => {
       <ShopNow />
       <PostYourProduct />
       <BlogSection />
+      <TestimonialsCards />
       <Newsletter />
     </div>
   );

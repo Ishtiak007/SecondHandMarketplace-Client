@@ -13,7 +13,7 @@ This platform connects buyers and sellers of pre-owned goods, offering a seamles
 
 Start browsing today and find amazing deals while supporting sustainability! 🌱
 
-**Live Demo (Frontend)**: [SecondHand Marketplace](https://second-hand-marketplace-client-seven.vercel.app)
+**Live Demo (Frontend)**: [SecondHand Marketplace Webiste](https://second-hand-marketplace-client-seven.vercel.app)
 
 ## Roles in **SecondHand Marketplace**
 

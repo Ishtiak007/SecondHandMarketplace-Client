@@ -61,11 +61,10 @@ const categories = [
 export default function AllCategoryHomeSection() {
   return (
     <Container>
-      <div className="mt-12">
-        <h1 className="text-teal-700 text-3xl font-semibold text-center">
+      <div className="my-20">
+        <h2 className="text-xl sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl font-bold text-center text-teal-700 mb-6 sm:mb-8">
           Browse items by category
-        </h1>
-
+        </h2>
         {/* categories card */}
         <div className="mt-4">
           <div className="mt-4 flex flex-wrap justify-center gap-5 p-3">
@@ -82,7 +81,7 @@ export default function AllCategoryHomeSection() {
                     alt={category.name}
                     className="object-cover w-full h-full transform transition-transform duration-300 hover:scale-105"
                   />
-                  <div className="absolute bottom-0 w-full bg-teal-800/60 py-2 px-2">
+                  <div className="absolute bottom-0 w-full bg-teal-700/50 py-2 px-2">
                     <div className="text-base md:text-lg font-medium text-white uppercase text-center flex items-center">
                       {category.name}
                     </div>

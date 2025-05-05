@@ -29,19 +29,12 @@ const CategoryOverview = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 480,
+        breakpoint: 768,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
@@ -77,7 +70,6 @@ const CategoryOverview = () => {
         "MENS FASHION & GROOMING category related essentials can be found here",
       image: fashion,
     },
-
     {
       id: 5,
       title: "HOBBIES-SPORTS",
@@ -101,25 +93,29 @@ const CategoryOverview = () => {
   ];
 
   return (
-    <div className="slider-container my-10 px-4 sm:px-6 lg:px-8">
+    <div className="overflow-hidden my-16 px-4 sm:px-6 lg:px-12">
+      <h2 className="text-xl sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl font-bold text-center text-teal-700 mb-6 sm:mb-8">
+        Category Overview
+      </h2>
+
       <Slider {...settings}>
         {categories.map((item) => (
           <div key={item.id} className="px-2">
-            <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-              <div className="relative w-full h-48 sm:h-56 md:h-64">
+            <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition duration-300">
+              <div className="relative w-full aspect-[4/3]">
                 <Image
                   src={item.image}
                   alt={item.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-t-xl"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover rounded-t-2xl"
                 />
               </div>
-              <div className="p-4 space-y-2">
-                <p className="text-sm font-semibold text-teal-600 uppercase">
+              <div className="p-4 sm:p-5 space-y-1">
+                <h3 className="text-sm sm:text-base font-semibold text-teal-600 uppercase line-clamp-2">
                   {item.title}
-                </p>
-                <p className="text-base text-gray-800 h-20">
+                </h3>
+                <p className="text-sm sm:text-base text-gray-700 line-clamp-3 h-20">
                   {item.description}
                 </p>
               </div>

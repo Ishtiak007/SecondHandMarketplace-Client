@@ -41,10 +41,10 @@ const steps: Step[] = [
 
 const HowItWorks: React.FC = () => {
   return (
-    <section className="py-20 bg-white" id="how-it-works">
+    <section className="my-20 bg-white" id="how-it-works">
       <div className="max-w-6xl mx-auto px-4 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-teal-700 mb-10">
-          How It Works
+        <h2 className="text-xl sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl font-bold text-center text-teal-700 mb-6 sm:mb-8">
+          How SocundHand Market place works
         </h2>
 
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">

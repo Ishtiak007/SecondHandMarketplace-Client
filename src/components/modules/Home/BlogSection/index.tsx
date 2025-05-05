@@ -8,18 +8,19 @@ import Link from "next/link";
 
 const BlogSection = () => {
   return (
-    <div className="my-24">
-      <div className="my-8">
-        <h1 className="text-center text-teal-700 font-medium lg:text-3xl text-lg">
-          Our Blogs
-        </h1>
+    <div className="my-20">
+      <div>
+        <h2 className="text-xl sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl font-bold text-center text-teal-700 mb-6 sm:mb-8">
+          Our Blog
+        </h2>
+
         <p className="text-center text-base">
           Explore expert tips, second-hand buying and selling advice, and how to
           get the best deals on used products!
         </p>
       </div>
 
-      <div className="lg:flex justify-center items-center gap-10">
+      <div className="lg:flex justify-center items-center gap-10 mt-7">
         <Link href={"/blogs"}>
           <div className="flex flex-wrap justify-center gap-6">
             <div className="relative lg:size-[400px] size-[150px] rounded-lg overflow-hidden shadow-lg group">

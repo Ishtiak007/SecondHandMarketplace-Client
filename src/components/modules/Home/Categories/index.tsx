@@ -75,7 +75,7 @@ export default function AllCategoryHomeSection() {
                 key={index}
                 className="block"
               >
-                <div className="rounded-lg relative bg-gray-100 dark:bg-neutral-900 h-[190px] w-[190px] transition-all duration-300 ease-out border overflow-hidden">
+                <div className="rounded-md relative bg-gray-100 dark:bg-neutral-900 h-[95px] w-[230px] transition-all duration-300 ease-out border overflow-hidden">
                   <Image
                     src={category.image}
                     fill
@@ -83,7 +83,7 @@ export default function AllCategoryHomeSection() {
                     className="object-cover w-full h-full transform transition-transform duration-300 hover:scale-105"
                   />
                   <div className="absolute bottom-0 w-full bg-teal-800/60 py-2 px-2">
-                    <div className="text-base md:text-lg font-medium text-white uppercase text-center flex items-center justify-around">
+                    <div className="text-base md:text-lg font-medium text-white uppercase text-center flex items-center">
                       {category.name}
                     </div>
                   </div>

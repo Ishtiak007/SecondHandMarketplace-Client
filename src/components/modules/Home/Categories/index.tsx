@@ -28,6 +28,7 @@ import jewelry from "../../../../assets/jewelry.jpg";
 import health from "../../../../assets/health.jpg";
 import watches from "../../../../assets/watches.jpg";
 import travel from "../../../../assets/travel.jpg";
+import { MdArrowOutward } from "react-icons/md";
 
 // category data
 const categories = [
@@ -63,28 +64,28 @@ export default function AllCategoryHomeSection() {
     <Container>
       <div className="mt-12">
         <h1 className="text-teal-700 text-3xl font-semibold text-center">
-          All category
+          Browse items by category
         </h1>
 
         {/* categories card */}
         <div className="mt-4">
-          <div className="mt-4 flex flex-wrap justify-center gap-5 p-5">
+          <div className="mt-4 flex flex-wrap justify-center gap-5">
             {categories.map((category, index) => (
               <Link
                 href={`/category/${category.name}`}
                 key={index}
                 className="block"
               >
-                <div className="rounded-lg relative bg-gray-100 dark:bg-neutral-900 h-[250px] w-[250px] transition-all duration-300 ease-out border overflow-hidden">
+                <div className="rounded-lg relative bg-gray-100 dark:bg-neutral-900 h-[190px] w-[190px] transition-all duration-300 ease-out border overflow-hidden">
                   <Image
                     src={category.image}
                     fill
                     alt={category.name}
-                    className="object-cover w-full h-full transform transition-transform duration-300 hover:translate-y-[-5px]"
+                    className="object-cover w-full h-full transform transition-transform duration-300 hover:scale-105"
                   />
-                  <div className="absolute bottom-0 w-full bg-teal-800/60 py-4 px-4">
-                    <div className="text-base md:text-lg font-medium text-white uppercase text-center">
-                      {category.name}
+                  <div className="absolute bottom-0 w-full bg-teal-800/60 py-2 px-2">
+                    <div className="text-base md:text-lg font-medium text-white uppercase text-center flex items-center justify-around">
+                      {category.name} <MdArrowOutward />
                     </div>
                   </div>
                 </div>

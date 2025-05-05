@@ -6,11 +6,13 @@ import ShopNow from "../../../components/modules/Home/ShopNow";
 import Newsletter from "../../../components/modules/Home/NewsLetter";
 import BlogSection from "../../../components/modules/Home/BlogSection";
 import { TestimonialsCards } from "../../../components/modules/Home/Testimonials";
+import HowItWorks from "../../../components/modules/Home/HowItWorks";
 
 const HomePage = () => {
   return (
     <div>
       <Banner />
+      <HowItWorks />
       <AllCategoryHomeSection />
       <ShopNow />
       <PostYourProduct />

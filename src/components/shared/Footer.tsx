@@ -10,93 +10,120 @@ import {
 
 const Footer = () => {
   return (
-    <motion.div
+    <motion.footer
       initial={{ height: 0 }}
       whileInView={{ height: "auto" }}
       transition={{ duration: 1 }}
-      className="bg-teal-800 p-10"
+      className="bg-teal-800 text-white px-6 py-10"
     >
-      <div className="grid md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 place-items-start gap-8 text-white">
-        <div>
-          <Link href={"/"}>
-            <h1 className="lg:text-lg font-semibold">
-              SecondHand<span className="text-teal-300">Marketplace</span>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10">
+        {/* Logo & Description */}
+        <div className="text-center sm:text-left">
+          <Link href="/">
+            <h1 className="text-xl sm:text-2xl font-semibold">
+              SecondHand
+              <span className="text-teal-300">Marketplace</span>
             </h1>
           </Link>
-          <p className="w-[80%] lg:w-[80%] mt-3 text-center">
-            SecondHand Marketplace: Your Go-To Platform for Buying and Selling
-            Pre-Loved Products
+          <p className="mt-3 text-sm leading-relaxed max-w-xs mx-auto sm:mx-0">
+            Your Go-To Platform for Buying and Selling Pre-Loved Products
           </p>
         </div>
+
+        {/* Services */}
         <div>
-          <div className="font-bold mb-6">Services</div>
-          <div className="flex flex-col gap-4">
-            <a href="" className="text-sm hover:underline">
-              Free Delivery on Select Products
-            </a>
-            <a href="" className="text-sm hover:underline">
-              Secure Payment Options
-            </a>
-            <a href="" className="text-sm hover:underline">
-              Seller Support & Assistance
-            </a>
-            <a href="" className="text-sm hover:underline">
-              Product Warranty Information
-            </a>
-            <a href="" className="text-sm hover:underline">
-              Product Listing for Sellers
-            </a>
-          </div>
-        </div>
-        {/* .......Customer Support....... */}
-        <div>
-          <div className="font-bold mb-6">Customer Support</div>
-          <div className="flex flex-col gap-4">
-            <a href="" className="text-sm hover:underline">
-              Help Center
-            </a>
-            <a href="" className="text-sm hover:underline">
-              Return & Refund Policy
-            </a>
-            <a href="" className="text-sm hover:underline">
-              Shipping & Delivery Information
-            </a>
-            <a href="" className="text-sm hover:underline">
-              Terms & Conditions
-            </a>
-            <a href="" className="text-sm hover:underline">
-              Privacy Policy
-            </a>
-          </div>
+          <h2 className="font-bold text-base mb-4">Services</h2>
+          <ul className="flex flex-col gap-3 text-sm">
+            <li>
+              <a href="#" className="hover:underline">
+                Free Delivery on Select Products
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Secure Payment Options
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Seller Support & Assistance
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Product Warranty Information
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Product Listing for Sellers
+              </a>
+            </li>
+          </ul>
         </div>
 
+        {/* Customer Support */}
         <div>
-          <div className="font-bold mb-3">Contact Information</div>
-          <h2 className="text-sm mb-4">support@secondhandmarketplace.com</h2>
-          <h2 className="text-sm">+8801521742729</h2>
-          <div>
-            <div className="font-bold my-6">
-              <h1>Follow Us (Social Media)</h1>
+          <h2 className="font-bold text-base mb-4">Customer Support</h2>
+          <ul className="flex flex-col gap-3 text-sm">
+            <li>
+              <a href="#" className="hover:underline">
+                Help Center
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Return & Refund Policy
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Shipping & Delivery Info
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Terms & Conditions
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Privacy Policy
+              </a>
+            </li>
+          </ul>
+        </div>
 
-              <div className="flex gap-4 mt-4">
-                <a href="" className="hover:scale-110 text-xl">
-                  <BsFacebook />
-                </a>
-                <a href="" className="hover:scale-110 text-xl">
-                  <BsInstagram />
-                </a>
-                <a href="" className="hover:scale-110 text-xl">
-                  <BsTwitter />
-                </a>
-                <a href="" className="hover:scale-110 text-xl">
-                  <BsPinterest />
-                </a>
-              </div>
-            </div>
+        {/* Contact & Social */}
+        <div>
+          <h2 className="font-bold text-base mb-4">Contact</h2>
+          <p className="text-sm mb-2">ishtiak.sparrow98@gmail.com</p>
+          <p className="text-sm mb-6">+8801521742729</p>
+
+          <h2 className="font-bold text-base mb-3">Follow Us</h2>
+          <div className="flex gap-4 text-xl">
+            <a href="#" className="hover:scale-110 transition-transform">
+              <BsFacebook />
+            </a>
+            <a href="#" className="hover:scale-110 transition-transform">
+              <BsInstagram />
+            </a>
+            <a href="#" className="hover:scale-110 transition-transform">
+              <BsTwitter />
+            </a>
+            <a href="#" className="hover:scale-110 transition-transform">
+              <BsPinterest />
+            </a>
           </div>
         </div>
       </div>
-    </motion.div>
+
+      {/* Bottom Divider */}
+      <div className="mt-10 border-t border-teal-600 pt-4 text-center text-sm text-teal-200">
+        © {new Date().getFullYear()} SecondHand Marketplace. All rights
+        reserved.
+      </div>
+    </motion.footer>
   );
 };
 

@@ -58,25 +58,13 @@ export const MegaMenu = () => {
   return (
     <div className="relative z-50 w-full bg-white shadow-xl rounded-xl p-4 lg:p-6 max-w-screen-2xl mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {/* Categories Section */}
-        <div className="max-h-[300px] overflow-y-auto pr-2">
-          <h3 className="font-semibold text-lg mb-4">Categories</h3>
-          <ul className="space-y-2 text-sm text-gray-700">
-            {categories.map(({ label, slug }) => (
-              <li key={slug}>
-                <NavigationLink route={label} path={`/category/${slug}`} />
-              </li>
-            ))}
-          </ul>
-        </div>
-
         {/* Recent Arrivals */}
         <div className="lg:col-span-2">
-          <h3 className="font-semibold text-lg mb-4">Recent Arrivals</h3>
+          <h3 className="font-semibold text-lg mb-4">Recent Posted</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
             {sortedProducts?.slice(0, 6).map((product) => (
               <Link href={`/products/${product._id}`} key={product._id}>
-                <div className="flex items-center gap-4 bg-gray-50 hover:bg-gray-100 transition p-3 rounded-lg shadow-sm">
+                <div className="flex items-center gap-4 bg-gray-50 hover:bg-teal-100/35 transition p-3 rounded-lg shadow-sm">
                   <div className="flex-shrink-0">
                     <Image
                       src={product.images[0]}
@@ -96,6 +84,18 @@ export const MegaMenu = () => {
               </Link>
             ))}
           </div>
+        </div>
+
+        {/* Categories Section */}
+        <div className="max-h-[400px] overflow-y-auto pr-2">
+          <h3 className="font-semibold text-lg mb-4">Categories</h3>
+          <ul className="space-y-2 text-sm text-gray-700">
+            {categories.map(({ label, slug }) => (
+              <li key={slug}>
+                <NavigationLink route={label} path={`/category/${slug}`} />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

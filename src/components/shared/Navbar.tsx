@@ -80,22 +80,22 @@ export default function Navbar() {
                 <NavigationLink route="Home" path="/" />
               </li>
               <li>
-                <NavigationLink route="Products" path="/products" />
-              </li>
-              <li>
-                <NavigationLink route="About Us" path="/aboutUs" />
-              </li>
-              <li>
-                <NavigationLink route="Contact" path="/contactUs" />
-              </li>
-              <li>
-                <NavigationLink route="FAQ" path="/faq" />
+                <NavigationLink route="All Products" path="/products" />
               </li>
               <li className="group relative">
                 <NavigationLink route="Recent Products" path="#" />
                 <div className="absolute left-1/2 top-full transform -translate-x-1/2 invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-opacity duration-200 z-50 min-w-[50vw] max-w-4xl">
                   <MegaMenu />
                 </div>
+              </li>
+              <li>
+                <NavigationLink route="About Us" path="/aboutUs" />
+              </li>
+              <li>
+                <NavigationLink route="FAQ" path="/faq" />
+              </li>
+              <li>
+                <NavigationLink route="Contact" path="/contactUs" />
               </li>
             </ul>
 

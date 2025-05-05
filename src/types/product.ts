@@ -15,14 +15,31 @@ export type TProduct = {
   userID?: TUserId;
   status?: "available" | "sold";
   category:
-    | "mobiles"
+    | "home"
     | "electronics"
+    | "books"
+    | "furniture"
+    | "tools"
+    | "office"
+    | "mobiles"
     | "vehicles"
     | "property"
-    | "home"
     | "pets"
     | "cloths"
-    | "sports";
+    | "sports"
+    | "toys"
+    | "beauty"
+    | "fashion"
+    | "music"
+    | "gaming"
+    | "groceries"
+    | "baby"
+    | "art"
+    | "garden"
+    | "jewelry"
+    | "health"
+    | "watches"
+    | "travel";
   brand?: string;
   location: string;
   negotiable?: "yes" | "no";

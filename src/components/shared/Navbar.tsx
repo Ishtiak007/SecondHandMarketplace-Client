@@ -1,5 +1,16 @@
 "use client";
+import { useEffect, useState, Fragment } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../redux/hooks";
+import { RootState } from "../../redux/store";
+import { logout } from "../../redux/features/authSlice";
+import { logoutFromCookie } from "../../services/AuthApi";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
+import NavigationLink from "./NavigationLink";
+import Container from "./Container";
 import {
   Book,
   Building2,
@@ -10,41 +21,23 @@ import {
   LogOutIcon,
   Mail,
   ShoppingBag,
-  Menu as HamburgerMenu, // Import the hamburger icon
+  Menu as HamburgerMenu,
 } from "lucide-react";
-import Link from "next/link";
 import { Separator } from "../ui/separator";
-import { Fragment, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import NavigationLink from "./NavigationLink";
-import { RootState } from "../../redux/store";
-import Container from "./Container";
-import { useAppDispatch } from "../../redux/hooks";
-import { useRouter } from "next/navigation";
-import { logout } from "../../redux/features/authSlice";
-import { logoutFromCookie } from "../../services/AuthApi";
-import { toast } from "sonner";
+import { MegaMenu } from "../modules/MegaMenu";
 
 export default function Navbar() {
   const user = useSelector((state: RootState) => state.auth?.user);
-  const router = useRouter();
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State to handle mobile menu visibility
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileMegaOpen, setIsMobileMegaOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 200) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 200);
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleLogout = async () => {
@@ -71,7 +64,7 @@ export default function Navbar() {
               </h1>
             </Link>
 
-            {/* Mobile Hamburger Menu */}
+            {/* Mobile Hamburger */}
             <div className="lg:hidden flex items-center">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -81,7 +74,7 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Desktop Menu */}
+            {/* Desktop Nav */}
             <ul className="hidden lg:flex gap-4 text-base font-medium">
               <li>
                 <NavigationLink route="Home" path="/" />
@@ -98,6 +91,12 @@ export default function Navbar() {
               <li>
                 <NavigationLink route="FAQ" path="/faq" />
               </li>
+              <li className="group relative">
+                <NavigationLink route="Recent Products" path="#" />
+                <div className="absolute left-1/2 top-full transform -translate-x-1/2 invisible group-hover:visible group-hover:opacity-100 opacity-0 transition-opacity duration-200 z-50 min-w-[50vw] max-w-4xl">
+                  <MegaMenu />
+                </div>
+              </li>
             </ul>
 
             {/* Action Buttons */}
@@ -105,27 +104,23 @@ export default function Navbar() {
               <Link href="/user/dashboard">
                 <Button
                   variant="outline"
-                  className="hover:cursor-pointer border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50"
+                  className="border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 rounded-full hover:bg-teal-700 hover:text-white bg-zinc-50"
                 >
                   Dashboard
                 </Button>
               </Link>
 
-              {user && (
+              {user ? (
                 <div onClick={handleLogout}>
-                  <span className="hover:cursor-pointer border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50">
-                    <LogOutIcon className="w-6 h-6" />
-                    Logout
+                  <span className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center font-medium rounded-full hover:bg-teal-800 hover:text-white my-4 mt-2 bg-teal-700 text-white text-sm sm:text-base">
+                    <LogOutIcon className="w-6 h-6" /> Logout
                   </span>
                 </div>
-              )}
-
-              {!user && (
+              ) : (
                 <div className="hidden lg:flex">
                   <Link href={"/login"}>
-                    <span className="hover:cursor-pointer border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-700 hover:text-white bg-zinc-50">
-                      <LogIn className="w-6 h-6" />
-                      Login
+                    <span className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center font-medium rounded-full hover:bg-teal-800 hover:text-white my-4 mt-2 bg-teal-700 text-white text-sm sm:text-base">
+                      <LogIn className="w-6 h-6" /> Login
                     </span>
                   </Link>
                 </div>
@@ -138,56 +133,50 @@ export default function Navbar() {
             <div className="lg:hidden bg-white shadow-md py-4 px-6">
               <ul className="space-y-4">
                 <li>
-                  <Link href="/" className="flex gap-2 text-base items-center">
+                  <Link href="/" className="flex gap-2 items-center">
                     <Home className="w-6 h-6" /> Home
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/products"
-                    className="flex gap-2 text-base items-center"
-                  >
+                  <Link href="/products" className="flex gap-2 items-center">
                     <ShoppingBag className="w-6 h-6" /> Products
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/aboutUs"
-                    className="flex gap-2 text-base items-center"
-                  >
+                  <Link href="/aboutUs" className="flex gap-2 items-center">
                     <Building2 className="w-6 h-6" /> About Us
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/contactUs"
-                    className="flex gap-2 text-base items-center"
-                  >
+                  <Link href="/contactUs" className="flex gap-2 items-center">
                     <Mail className="w-6 h-6" /> Contact Us
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/faq"
-                    className="flex gap-2 text-base items-center"
-                  >
+                  <Link href="/faq" className="flex gap-2 items-center">
                     <HelpCircle className="w-6 h-6" /> FAQs
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    href="/blogs"
-                    className="flex gap-2 text-base items-center"
-                  >
+                  <Link href="/blogs" className="flex gap-2 items-center">
                     <Book className="w-6 h-6" /> Blogs
                   </Link>
                 </li>
+                <li>
+                  <button
+                    onClick={() => setIsMobileMegaOpen(!isMobileMegaOpen)}
+                    className="flex gap-2 items-center text-teal-700 font-medium"
+                  >
+                    Discover
+                  </button>
+                </li>
+
                 {user && (
                   <Fragment>
                     <li>
                       <Link
                         href="/user/dashboard"
-                        className="flex gap-2 text-base items-center"
+                        className="flex gap-2 items-center"
                       >
                         <LayoutDashboard className="w-6 h-6" /> Dashboard
                       </Link>
@@ -196,6 +185,12 @@ export default function Navbar() {
                   </Fragment>
                 )}
               </ul>
+
+              {isMobileMegaOpen && (
+                <div className="mt-4 max-h-[60vh] overflow-y-auto">
+                  <MegaMenu />
+                </div>
+              )}
             </div>
           )}
         </nav>

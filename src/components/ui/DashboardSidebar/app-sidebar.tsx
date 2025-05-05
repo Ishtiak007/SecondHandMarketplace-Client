@@ -49,6 +49,15 @@ const data = {
   ],
   adminNav: [
     {
+      title: "Admin Panel",
+      items: [
+        {
+          title: "Admin Panel",
+          url: "/admin/dashboard/adminPanel",
+        },
+      ],
+    },
+    {
       title: "Manage All Users",
       items: [{ title: "All Users", url: "/admin/dashboard/users" }],
     },
@@ -77,7 +86,7 @@ export async function AppSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <Link href="/">
-                <div className="flex flex-col gap-0.5 leading-none">
+                <div className="flex flex-col gap-0.5 leading-none ">
                   <span className="font-bold">SecondHand Marketplace</span>
                 </div>
               </Link>
@@ -85,7 +94,7 @@ export async function AppSidebar({
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="scrollbar-hidden">
         <SidebarGroup>
           <SidebarMenu>
             {[...data.navMain, ...(isAdmin ? data.adminNav : [])].map(

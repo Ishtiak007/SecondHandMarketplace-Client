@@ -12,6 +12,7 @@ import Link from "next/link";
 
 const Banner = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+
   const data = [
     {
       img: "https://i.ibb.co.com/whYBdyLG/Img1.jpg",
@@ -57,70 +58,65 @@ const Banner = () => {
       easing: "ease-in-out",
     });
   }, []);
-  return (
-    <div>
-      <div className="justify-center items-center m-auto">
-        <Swiper
-          modules={[Navigation, Autoplay, EffectFade]}
-          spaceBetween={30}
-          slidesPerView={1}
-          autoplay={{ delay: 10000, disableOnInteraction: false }}
-          effect="fade"
-          fadeEffect={{ crossFade: true }}
-          speed={1000}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)} // Track current slide index
-        >
-          {data.map((d, index) => (
-            <SwiperSlide key={index}>
-              <motion.div
-                key={activeIndex} // Force re-render on slide change
-                className="relative w-full h-[450px] sm:h-[600px] md:h-[750px] bg-cover bg-center bg-no-repeat px-4"
-                style={{ backgroundImage: `url(${d.img})` }}
-                initial={{ scale: 1.2 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 3, ease: "easeOut" }}
-              >
-                {/* Simple Light Blue Gradient Overlay */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(to right, #005F5A, rgba(21, 21, 21, 0.00))",
-                  }}
-                ></div>
 
-                {/* Centering Wrapper */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center text-center lg:ml-40 px-5 max-w-3xl">
-                  <div className="py-8 sm:py-12 md:py-16 text-left">
-                    <h2
-                      className="text-white font-semibold text-3xl uppercase sm:text-3xl md:text-4xl pb-4 sm:pb-6"
-                      data-aos="fade-left"
+  return (
+    <div className="w-full">
+      <Swiper
+        modules={[Navigation, Autoplay, EffectFade]}
+        spaceBetween={30}
+        slidesPerView={1}
+        autoplay={{ delay: 10000, disableOnInteraction: false }}
+        effect="fade"
+        fadeEffect={{ crossFade: true }}
+        speed={1000}
+        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+      >
+        {data.map((d, index) => (
+          <SwiperSlide key={index}>
+            <motion.div
+              key={activeIndex}
+              className="relative w-full h-[400px] sm:h-[500px] md:h-[650px] lg:h-[750px] bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: `url(${d.img})` }}
+              initial={{ scale: 1.2 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 3, ease: "easeOut" }}
+            >
+              {/* Gradient Overlay */}
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-[#005F5A] to-transparent"
+                aria-hidden="true"
+              />
+
+              {/* Content Container */}
+              <div className="absolute inset-0 flex items-center justify-center text-white px-4 sm:px-8 lg:px-16">
+                <div
+                  className="max-w-3xl text-center md:text-left"
+                  data-aos="fade-left"
+                >
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold uppercase mb-4 sm:mb-6">
+                    {d.heading}
+                  </h2>
+                  <p
+                    className="text-sm sm:text-base lg:text-lg leading-relaxed mb-6 sm:mb-8"
+                    data-aos="fade-left"
+                    data-aos-delay="300"
+                  >
+                    {d.desc}
+                  </p>
+                  <Link href="/register">
+                    <button
+                      className="px-6 py-2 text-sm sm:text-base font-semibold rounded-full bg-teal-700 hover:bg-teal-800 transition-all duration-300"
+                      data-aos="flip-right"
                     >
-                      {d.heading}
-                      <br />
-                    </h2>
-                    <p
-                      className="text-white pb-6 sm:pb-8 text-sm sm:text-base"
-                      data-aos="fade-left"
-                      data-aos-delay="500"
-                    >
-                      {d.desc}
-                    </p>
-                    <Link href={"/register"}>
-                      <button
-                        className="hover:cursor-pointer border border-neutral-300 px-4 flex py-[6px] gap-3 items-center justify-center font-medium rounded-full transition-all duration-300 ease-in-out hover:bg-teal-800 hover:text-white my-4 mt-2 bg-teal-700 text-white text-sm sm:text-base"
-                        data-aos="flip-right"
-                      >
-                        Register Now
-                      </button>
-                    </Link>
-                  </div>
+                      Register Now
+                    </button>
+                  </Link>
                 </div>
-              </motion.div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+              </div>
+            </motion.div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </div>
   );
 };

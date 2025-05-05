@@ -28,7 +28,6 @@ import jewelry from "../../../../assets/jewelry.jpg";
 import health from "../../../../assets/health.jpg";
 import watches from "../../../../assets/watches.jpg";
 import travel from "../../../../assets/travel.jpg";
-import { MdArrowOutward } from "react-icons/md";
 
 // category data
 const categories = [
@@ -69,7 +68,7 @@ export default function AllCategoryHomeSection() {
 
         {/* categories card */}
         <div className="mt-4">
-          <div className="mt-4 flex flex-wrap justify-center gap-5">
+          <div className="mt-4 flex flex-wrap justify-center gap-5 p-3">
             {categories.map((category, index) => (
               <Link
                 href={`/category/${category.name}`}
@@ -85,7 +84,7 @@ export default function AllCategoryHomeSection() {
                   />
                   <div className="absolute bottom-0 w-full bg-teal-800/60 py-2 px-2">
                     <div className="text-base md:text-lg font-medium text-white uppercase text-center flex items-center justify-around">
-                      {category.name} <MdArrowOutward />
+                      {category.name}
                     </div>
                   </div>
                 </div>

@@ -104,7 +104,7 @@ export default function Navbar() {
               <Link href="/user/dashboard">
                 <Button
                   variant="outline"
-                  className="border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 rounded-full hover:bg-teal-700 hover:text-white bg-zinc-50"
+                  className="cursor-pointer border border-neutral-300 lg:px-4 flex lg:py-[6px] gap-3 rounded-full hover:bg-teal-700 hover:text-white bg-zinc-50"
                 >
                   Dashboard
                 </Button>

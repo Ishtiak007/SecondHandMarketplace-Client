@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import React from "react";
 import AnalysisCard from "../../../../../components/modules/Dashboard/AdminPanel/AnalysisCard";
 

@@ -8,6 +8,8 @@ import {
 import Link from "next/link";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
+import { BiPurchaseTag } from "react-icons/bi";
+import { CiShoppingCart } from "react-icons/ci";
 
 const AnalysisCard = async () => {
   const { data: products } = await getAllProducts();
@@ -43,7 +45,7 @@ const AnalysisCard = async () => {
       <Card
         count={purchases?.result?.length}
         label="Total Purchases"
-        icon={<FaUser size={35} className="text-gray-100" />}
+        icon={<BiPurchaseTag size={35} className="text-gray-100" />}
         bgColor="bg-pink-600/65"
         linkText="Manage Purchases"
         linkHref="/user/dashboard/orders/purchase-history"
@@ -53,7 +55,7 @@ const AnalysisCard = async () => {
       <Card
         count={sales?.result?.length}
         label="Total Sales"
-        icon={<FaUser size={35} className="text-gray-100" />}
+        icon={<CiShoppingCart size={35} className="text-gray-100" />}
         bgColor="bg-sky-600/65"
         linkText="Manage Sales"
         linkHref="/user/dashboard/orders/sales-history"

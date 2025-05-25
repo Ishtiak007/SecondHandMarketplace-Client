@@ -7,7 +7,7 @@ export default function NotFoundPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <Card className="p-6 w-[350px] md:w-[500px] shadow-lg">
         <div className="text-center space-y-2">
-          <h2 className="text-xl font-semibold text-red-600">Page Not Found</h2>
+          <h2 className="text-xl font-semibold text-red-600">Page Not Found!</h2>
           <p className="text-sm text-gray-700">
             Sorry, the page you are looking for might have been removed or is
             temporarily unavailable.
